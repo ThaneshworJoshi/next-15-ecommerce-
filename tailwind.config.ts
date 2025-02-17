@@ -9,6 +9,13 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: "600px", // Small devices
+      md: "768px", // Tablets
+      lg: "1024px", // Laptops
+      xl: "1200px", // Desktops
+      "2xl": "1500px", // Large screens
+    },
     extend: {
       colors: {
         background: "hsl(var(--background))",
@@ -26,6 +33,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          red: "hsl(var(--primary-red))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

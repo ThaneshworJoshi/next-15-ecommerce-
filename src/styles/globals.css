@@ -33,8 +33,9 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
     --highlight: 0, 72%, 64%; /* #FB7181 for highlight*/
-    --promo: 0, 89%, 71%; /* #FF4858 for promo*/
+    --primary-red: 0, 89%, 71%; /* #FF4858 for promo*/
 
     /* Text Colors */
     --neutral-darkest: 222, 10%, 10%; /* Deepest black - for highest contrast text */
