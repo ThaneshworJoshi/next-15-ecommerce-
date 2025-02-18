@@ -4,5 +4,6 @@
   "json.schemas": [
 
   ],
-  "vs-code-prettier-eslint.prettierLast": true
+  "vs-code-prettier-eslint.prettierLast": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
