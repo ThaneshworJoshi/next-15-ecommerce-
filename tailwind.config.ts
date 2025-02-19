@@ -58,6 +58,7 @@ export default {
           muted: "hsl(var(--neutral-muted))",
           link: "hsl(var(--neutral-link))",
           highlight: "hsl(var(--neutral-highlight))",
+          background: "hsl(var(--neutral-background))"
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

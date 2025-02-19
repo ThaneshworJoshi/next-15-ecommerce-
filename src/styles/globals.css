@@ -35,7 +35,7 @@ body {
     --radius: 0.5rem;
 
     --highlight: 0, 72%, 64%; /* #FB7181 for highlight*/
-    --primary-red: 0, 89%, 71%; /* #FF4858 for promo*/
+    --primary-red: 355, 100%, 64%; /* #FF4858 for promo*/
 
     /* Text Colors */
     --neutral-darkest: 222, 10%, 10%; /* Deepest black - for highest contrast text */
@@ -44,6 +44,7 @@ body {
     --neutral-muted: 210, 18%, 65%; /* #C1C8CE - Muted text, descriptions */
     --neutral-link: 227, 47%, 27%; /* #223263 - Links and highlights */
     --neutral-highlight: 227, 30%, 40%; /* Darker link or hover state */
+    --neutral-background: 210, 12%, 97%; /* #F6F7F8 */
   }
   .dark {
     --background: 0 0% 3.9%;
