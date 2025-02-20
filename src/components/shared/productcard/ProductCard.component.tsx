@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -46,90 +48,85 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         )}
 
         {/* Product Image */}
-        <Image
-          src={media?.imageUrl || "/placeholder.png"}
-          alt={media?.altText || "Product image"}
-          width={300}
-          height={272}
-          className="rounded-lg object-cover"
-        />
+        <div className="relative w-full h-[200px] md:h-[250px]">
+          <Image
+            src={media?.imageUrl || "/placeholder.png"}
+            alt={media?.altText || "Product image"}
+            fill
+            className="rounded-lg object-cover"
+          />
+        </div>
 
-        {/* Product Details - Vertical */}
-        {variant === "vertical" ? (
-          <div className="pt-4 flex flex-col justify-between h-full text-center bg-white z-20">
-            {/* Title */}
-            <Link href={productLink} passHref className="hover:underline">
-              <h3 className="font-bold text-md">{title}</h3>
-            </Link>
+        {/* Product Details */}
+        <div
+          className={`${
+            variant === "vertical"
+              ? "pt-4 flex flex-col justify-between h-full text-center bg-white z-20"
+              : "flex flex-col w-full items-center md:items-start p-3 md:p-0 bg-white z-20 md:mx-6"
+          }`}
+        >
+          {/* Title */}
+          <Link href={productLink} passHref className="hover:underline">
+            <h3 className={`font-bold ${variant === "horizontal" ? "text-xl" : "text-md"}`}>
+              {title}
+            </h3>
+          </Link>
 
-            {/* Star Rating */}
-            <div className="flex justify-center py-1">
-              {[...Array(5)].map((_, index) => (
-                <MdStar
-                  key={index}
-                  className={`text-xl ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
-                />
-              ))}
-            </div>
-
-            {/* Pricing & Discount */}
-            <div className="px-10 py-1">
-              <span className="text-primary font-bold text-md">${price.toFixed(2)}</span>
-              {originalPrice && (
-                <span className="text-gray-400 line-through ml-2 text-sm">${originalPrice.toFixed(2)}</span>
-              )}
-              {discount && <span className="text-highlight font-bold ml-2 text-sm">{discount}% Off</span>}
-            </div>
+          {/* Star Rating */}
+          <div className="flex justify-center py-1">
+            {[...Array(5)].map((_, index) => (
+              <MdStar
+                key={index}
+                className={`text-xl ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
+              />
+            ))}
           </div>
-        ) : (
-          // Product Details - Horizontal
-          <div className="flex flex-col w-full items-center md:items-start p-3 md:p-0 bg-white z-20 md:mx-6">
-            {/* Title */}
-            <Link href={productLink} passHref className="hover:underline">
-              <h3 className="font-xl text-xl">{title}</h3>
-            </Link>
 
-            {/* Star Rating & Review */}
-            <div className="flex items-center mb-2">
-              {[...Array(5)].map((_, index) => (
-                <MdStar
-                  key={index}
-                  className={`text-md ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
-                />
-              ))}
-              <span className="text-xs ml-3 mr-3 text-neutral-muted">0 reviews</span>
-              <Button variant="link" size="sm" className="text-xs text-primary-light">
-                Submit a review
-              </Button>
-            </div>
-
-            {/* Half-width bottom border */}
-            <span className="relative after:absolute after:left-0 after:w-1/2 after:h-[2px] after:bg-gray-100 after:bottom-0 after:content-['']"></span>
-
-            {/* Pricing & Discount */}
-            <div className="mt-5 mb-7">
-              <span className="text-primary font-bold text-md">${price.toFixed(2)}</span>
-              {originalPrice && (
-                <span className="text-gray-400 line-through ml-2 text-sm">${originalPrice.toFixed(2)}</span>
-              )}
-              {discount && <span className="text-highlight font-bold ml-2 text-sm">{discount}% Off</span>}
-            </div>
-
-            {/* Product Description */}
-            <p className="text-sm">{description}</p>
-
-            {/* Buttons - Add to Cart & Wishlist */}
-            <div className="flex gap-3 mt-5">
-              <Button onClick={events?.onAddToCart} size="lg" className="text-primary bg-primary-10">
-                <MdOutlineShoppingCart />
-                Add to cart
-              </Button>
-              <Button onClick={events?.onAddToWishlist} size="lg" className="text-primary bg-primary-10">
-                <Heart />
-              </Button>
-            </div>
+          {/* Pricing & Discount */}
+          <div className="px-10 py-1">
+            <span className="text-primary font-bold text-md">${price.toFixed(2)}</span>
+            {originalPrice && (
+              <span className="text-gray-400 line-through ml-2 text-sm">${originalPrice.toFixed(2)}</span>
+            )}
+            {discount && <span className="text-highlight font-bold ml-2 text-sm">{discount}% Off</span>}
           </div>
-        )}
+
+          {/* Horizontal Variant Extras */}
+          {variant === "horizontal" && (
+            <>
+              {/* Star Rating & Review */}
+              <div className="flex items-center mb-2">
+                {[...Array(5)].map((_, index) => (
+                  <MdStar
+                    key={index}
+                    className={`text-md ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
+                  />
+                ))}
+                <span className="text-xs ml-3 mr-3 text-neutral-muted">0 reviews</span>
+                <Button variant="link" size="sm" className="text-xs text-primary-light">
+                  Submit a review
+                </Button>
+              </div>
+
+              {/* Horizontal Line Separator */}
+              <span className="relative after:absolute after:left-0 after:w-1/2 after:h-[2px] after:bg-gray-100 after:bottom-0 after:content-['']"></span>
+
+              {/* Description */}
+              <p className="text-sm">{description}</p>
+
+              {/* Buttons - Add to Cart & Wishlist */}
+              <div className="flex gap-3 mt-5">
+                <Button onClick={events?.onAddToCart} size="lg" className="text-primary bg-primary-10">
+                  <MdOutlineShoppingCart />
+                  Add to cart
+                </Button>
+                <Button onClick={events?.onAddToWishlist} size="lg" className="text-primary bg-primary-10">
+                  <Heart />
+                </Button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

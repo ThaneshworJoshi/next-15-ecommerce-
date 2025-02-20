@@ -12,7 +12,7 @@ export const ProductCategoryTabs: React.FC<ProductCategoryTabsProps> = ({ catego
   // Filter products based on the selected category
   const filteredProducts: ProductCardProps[] =
     selectedCategory === "All"
-      ? products.splice(0, 8)
+      ? products.slice(0, 8)
       : products.filter((product) => product.category === selectedCategory);
 
   return (
@@ -21,13 +21,16 @@ export const ProductCategoryTabs: React.FC<ProductCategoryTabsProps> = ({ catego
       <h2 className="text-center text-2xl font-bold mb-6">BEST SELLER</h2>
 
       {/* Category Tabs */}
-      <Tabs defaultValue="All" onValueChange={(value) => setSelectedCategory(value)} className="">
-        <TabsList className="flex justify-center space-x-6 mb-6 bg-transparent">
+      <Tabs defaultValue="All" onValueChange={(value) => setSelectedCategory(value)}>
+        <TabsList className="flex justify-center space-x-4 sm:space-x-6 md:space-x-10 mb-6 bg-transparent">
           {categories?.map((category) => (
             <TabsTrigger
               key={category}
               value={category}
-              className="p-0 text-lg font-medium rounded-none text-[#262626] data-[state=active]:text-blue-500 data-[state=active]:border-b-2 data-[state=active]:border-blue-500"
+              className="p-0 text-lg font-medium rounded-none text-[#262626] 
+                         data-[state=active]:text-blue-500 
+                         data-[state=active]:border-b-2 
+                         data-[state=active]:border-blue-500"
             >
               {category}
             </TabsTrigger>
@@ -36,7 +39,7 @@ export const ProductCategoryTabs: React.FC<ProductCategoryTabsProps> = ({ catego
 
         {/* Product Grid for Each Tab */}
         <TabsContent value={selectedCategory}>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-center place-items-center">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
