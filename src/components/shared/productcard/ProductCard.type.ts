@@ -1,4 +1,5 @@
 export interface ProductCardProps {
+  id?: number;
   title: string;
   price: number;
   productLink: string;
@@ -8,11 +9,12 @@ export interface ProductCardProps {
   isHot?: boolean;
   variant?: 'vertical' | 'horizontal';
   description?: string;
+  category?: string;
   media: {
     imageUrl: string;
     altText: string;
   };
-  events: {
+  events?: {
     onAddToCart: () => void;
     onAddToWishlist: () => void;
   }
