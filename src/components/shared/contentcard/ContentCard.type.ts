@@ -2,7 +2,7 @@ import { LucideIcon } from "lucide-react";
 import { IconType } from "react-icons";
 
 export interface ContentCardProps  {
-  variant: "vertical" | "horizontal";
+  variant?: "vertical" | "horizontal";
   title: string;
   description: string;
   icon?: LucideIcon | IconType;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ContentCardProps } from "./ContentCard.type";
 
 export const ContentCard: React.FC<ContentCardProps> = ({
-  variant,
+  variant="vertical",
   title,
   description,
   icon: Icon,
@@ -16,7 +16,7 @@ export const ContentCard: React.FC<ContentCardProps> = ({
       className={`flex ${
         variant === "horizontal" ? "flex-row items-center space-x-4" : "flex-col items-center text-center"
       } 
-      bg-white p-6 rounded-lg shadow-md
+      bg-white p-6 rounded-lg
       ${showBorder ? "border border-gray-300" : ""}`}
     >
       {/* Vertical Variant (Uses Icon) */}
@@ -26,7 +26,7 @@ export const ContentCard: React.FC<ContentCardProps> = ({
 
       {/* Horizontal Variant (Uses Image) */}
       {variant === "horizontal" && media?.imageSrc && (
-        <div className="min-w-28 h-20 relative mr-0 sm:mr-9">
+        <div className="min-w-28 h-20 relative mr-0 sm:mr-4 md:mr-9">
           <Image
             src={media?.imageSrc}
             alt={media?.alt || title}
