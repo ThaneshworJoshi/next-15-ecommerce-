@@ -8,7 +8,7 @@ export const FeaturedProductCard: React.FC<FeaturedProductCardProps> = ({
   price,
   originalPrice,
   discount,
-  productLink, // ✅ Added prop for navigation
+  productLink,
 }) => {
   return (
     <Link href={productLink} passHref>

@@ -2,15 +2,28 @@ import React from "react";
 import Image from "next/image";
 import { ContentCardProps } from "./ContentCard.type";
 
+import { FaShippingFast } from "react-icons/fa";
+import { RiRefund2Line } from "react-icons/ri";
+import { MdOutlineSupportAgent } from "react-icons/md";
+
+// Define an icon map to match API strings
+const iconMap: Record<string, React.ElementType> = {
+  FaShippingFast: FaShippingFast,
+  RiRefund2Line: RiRefund2Line,
+  MdOutlineSupportAgent: MdOutlineSupportAgent,
+};
+
 export const ContentCard: React.FC<ContentCardProps> = ({
   variant="vertical",
   title,
   description,
-  icon: Icon,
+  icon,
   media,
   date,
   showBorder = false,
 }) => {
+  const IconComponent = icon ? iconMap[icon] : null;
+
   return (
     <div
       className={`flex ${
@@ -20,8 +33,8 @@ export const ContentCard: React.FC<ContentCardProps> = ({
       ${showBorder ? "border border-gray-300" : ""}`}
     >
       {/* Vertical Variant (Uses Icon) */}
-      {variant === "vertical" && Icon && (
-        <Icon className="text-red-400 w-20 h-20 mb-8" />
+      {variant === "vertical" && IconComponent && (
+        <IconComponent className="text-red-400 w-20 h-20 mb-8" />
       )}
 
       {/* Horizontal Variant (Uses Image) */}
