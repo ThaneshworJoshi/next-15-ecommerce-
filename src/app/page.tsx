@@ -1,7 +1,7 @@
-import { ContentCardRow, FeaturedProductCard, FeaturedProductCardProps, Footer, MiniProductCardRow } from "@/components";
+import { ContentCardRow, DynamicHomeContent, Footer, MiniProductCardRow } from "@/components";
 import HeroBanner from "@/components/herobanner/HeroBanner.componet";
-import ProductCategoryTabs from "@/components/productcategorytabs/ProductCategoryTabs.component";
 import { MediaBreaker } from "@/components/shared/mediabreaker";
+import { Suspense } from "react";
 
 async function getHomepageData() {
   try {
@@ -29,18 +29,11 @@ export default async function HomePage() {
     <div className="mx-auto">
       <HeroBanner title="Super Flash Sale 50% Off" media={{ imageUrl: "./herobanner-img.png", altText: "hero banner alt" }} />
 
-      {/* Featured Products */}
-      <div className="relative flex justify-center flex-wrap mt-0 md:-mt-20 z-20">
-        {data.featuredProducts.map((product: FeaturedProductCardProps, index: number) => (
-          <FeaturedProductCard key={index} {...product} />
-        ))}
-      </div>
-
-      <div className="h-10"></div>
-
-      {/* Product Category Tabs */}
-      <ProductCategoryTabs categories={data.categories} products={data.productsData} />
-
+      {/* Dynamic Data (fetched Client-Side) */}
+      <Suspense fallback={<p className="text-center">Loading...</p>}>
+        <DynamicHomeContent />
+      </Suspense>
+     
       <div className="h-10"></div>
 
       {/* Media Breaker */}
