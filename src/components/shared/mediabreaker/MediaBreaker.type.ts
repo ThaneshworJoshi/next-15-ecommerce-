@@ -3,6 +3,7 @@ export interface MediaBreakerProps {
       src: string;
       alt: string;
   };
+  variant?: 'slim' | 'wide';
   title:string;
   description: string;
   events: {
