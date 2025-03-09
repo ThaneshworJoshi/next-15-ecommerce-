@@ -48,7 +48,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         )}
 
         {/* Product Image */}
-        <div className="relative w-full h-[200px] md:h-[250px]">
+        <div
+          className={`relative ${
+            variant === "horizontal" ? "aspect-[300/270]" : "w-full"
+          } h-[200px] md:h-[250px]`}
+        >
           <Image
             src={media?.imageUrl || "/placeholder.png"}
             alt={media?.altText || "Product image"}
@@ -72,24 +76,38 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </h3>
           </Link>
 
-          {/* Star Rating */}
-          <div className="flex justify-center py-1">
-            {[...Array(5)].map((_, index) => (
-              <MdStar
-                key={index}
-                className={`text-xl ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
-              />
-            ))}
-          </div>
+          {variant === "vertical" && (
+            <>
+              {/* Star Rating */}
+              <div className="flex justify-center py-1">
+                {[...Array(5)].map((_, index) => (
+                  <MdStar
+                    key={index}
+                    className={`text-xl ${
+                      index < rating ? "text-yellow-400" : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
 
-          {/* Pricing & Discount */}
-          <div className="px-10 py-1">
-            <span className="text-primary font-bold text-md">${price.toFixed(2)}</span>
-            {originalPrice && (
-              <span className="text-gray-400 line-through ml-2 text-sm">${originalPrice.toFixed(2)}</span>
-            )}
-            {discount && <span className="text-highlight font-bold ml-2 text-sm">{discount}% Off</span>}
-          </div>
+              {/* Pricing & Discount */}
+              <div className="px-10 py-1">
+                <span className="text-primary font-bold text-md">
+                  ${price.toFixed(2)}
+                </span>
+                {originalPrice && (
+                  <span className="text-gray-400 line-through ml-2 text-sm">
+                    ${originalPrice.toFixed(2)}
+                  </span>
+                )}
+                {discount && (
+                  <span className="text-highlight font-bold ml-2 text-sm">
+                    {discount}% Off
+                  </span>
+                )}
+              </div>
+            </>
+          )}
 
           {/* Horizontal Variant Extras */}
           {variant === "horizontal" && (
@@ -99,11 +117,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 {[...Array(5)].map((_, index) => (
                   <MdStar
                     key={index}
-                    className={`text-md ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
+                    className={`text-md ${
+                      index < rating ? "text-yellow-400" : "text-gray-300"
+                    }`}
                   />
                 ))}
                 <span className="text-xs ml-3 mr-3 text-neutral-muted">0 reviews</span>
-                <Button variant="link" size="sm" className="text-xs text-primary-light">
+                <Button
+                  variant="link"
+                  size="sm"
+                  className="text-xs text-primary-light"
+                >
                   Submit a review
                 </Button>
               </div>
@@ -112,15 +136,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span className="relative after:absolute after:left-0 after:w-1/2 after:h-[2px] after:bg-gray-100 after:bottom-0 after:content-['']"></span>
 
               {/* Description */}
-              <p className="text-sm">{description}</p>
+              <p className="text-sm line-clamp-3">{description}</p>
 
               {/* Buttons - Add to Cart & Wishlist */}
               <div className="flex gap-3 mt-5">
-                <Button onClick={events?.onAddToCart} size="lg" className="text-primary bg-primary-10">
+                <Button
+                  onClick={events?.onAddToCart}
+                  size="lg"
+                  className="text-primary bg-primary-10"
+                >
                   <MdOutlineShoppingCart />
                   Add to cart
                 </Button>
-                <Button onClick={events?.onAddToWishlist} size="lg" className="text-primary bg-primary-10">
+                <Button
+                  onClick={events?.onAddToWishlist}
+                  size="lg"
+                  className="text-primary bg-primary-10"
+                >
                   <Heart />
                 </Button>
               </div>

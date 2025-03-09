@@ -1,0 +1,137 @@
+
+  export const mockProductData = [
+    {
+      id: 1,
+      title: "Wireless Headphones",
+      price: 99.99,
+      originalPrice: 129.99,
+      discount: 23,
+      rating: 4.5,
+      isHot: true,
+      productLink: "/assets/wireless-headphones",
+      category: "Electronics",
+      media: {
+        imageUrl: "./assets/sunglasses1.webp",
+        altText: "Wireless Headphones",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Wireless Headphones"),
+        onAddToWishlist: () => console.log("Added to wishlist: Wireless Headphones"),
+      },
+    },
+    {
+      id: 2,
+      title: "Smart Watch",
+      price: 149.99,
+      originalPrice: 199.99,
+      discount: 25,
+      rating: 4.7,
+      isHot: false,
+      productLink: "/assets/smart-watch",
+      category: "Wearables",
+      media: {
+        imageUrl: "/images/smartwatch.jpg",
+        altText: "Smart Watch",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Smart Watch"),
+        onAddToWishlist: () => console.log("Added to wishlist: Smart Watch"),
+      },
+    },
+    {
+      id: 3,
+      title: "Bluetooth Speaker",
+      price: 59.99,
+      originalPrice: 79.99,
+      discount: 25,
+      rating: 4.6,
+      isHot: true,
+      productLink: "/assets/bluetooth-speaker",
+      category: "Audio",
+      media: {
+        imageUrl: "/images/speaker.jpg",
+        altText: "Bluetooth Speaker",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Bluetooth Speaker"),
+        onAddToWishlist: () => console.log("Added to wishlist: Bluetooth Speaker"),
+      },
+    },
+    {
+      id: 4,
+      title: "Gaming Mouse",
+      price: 45.99,
+      originalPrice: 59.99,
+      discount: 23,
+      rating: 4.8,
+      isHot: false,
+      productLink: "/assets/gaming-mouse",
+      category: "Accessories",
+      media: {
+        imageUrl: "/images/mouse.jpg",
+        altText: "Gaming Mouse",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Gaming Mouse"),
+        onAddToWishlist: () => console.log("Added to wishlist: Gaming Mouse"),
+      },
+    },
+    {
+      id: 5,
+      title: "Mechanical Keyboard",
+      price: 89.99,
+      originalPrice: 119.99,
+      discount: 25,
+      rating: 4.7,
+      isHot: true,
+      productLink: "/assets/mechanical-keyboard",
+      category: "Accessories",
+      media: {
+        imageUrl: "/images/keyboard.jpg",
+        altText: "Mechanical Keyboard",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Mechanical Keyboard"),
+        onAddToWishlist: () => console.log("Added to wishlist: Mechanical Keyboard"),
+      },
+    },
+    {
+      id: 6,
+      title: "Laptop Stand",
+      price: 34.99,
+      originalPrice: 49.99,
+      discount: 30,
+      rating: 4.6,
+      isHot: false,
+      productLink: "/assets/laptop-stand",
+      category: "Office",
+      media: {
+        imageUrl: "/images/laptop-stand.jpg",
+        altText: "Laptop Stand",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Laptop Stand"),
+        onAddToWishlist: () => console.log("Added to wishlist: Laptop Stand"),
+      },
+    },
+    {
+      id: 7,
+      title: "Smartphone Gimbal",
+      price: 129.99,
+      originalPrice: 159.99,
+      discount: 19,
+      rating: 4.5,
+      isHot: true,
+      productLink: "/assets/smartphone-gimbal",
+      category: "Photography",
+      media: {
+        imageUrl: "/images/gimbal.jpg",
+        altText: "Smartphone Gimbal",
+      },
+      events: {
+        onAddToCart: () => console.log("Added to cart: Smartphone Gimbal"),
+        onAddToWishlist: () => console.log("Added to wishlist: Smartphone Gimbal"),
+      },
+    }
+  ];
+  
