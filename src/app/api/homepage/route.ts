@@ -459,33 +459,6 @@ export async function GET() {
           icon: 'MdOutlineSupportAgent',
         },
     ],
-    footerData: {
-      brand: {
-        logoSrc: "/logo.svg",
-        name: "E-Comm",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      },
-      socialLinks: {
-        facebook: "https://facebook.com/ecomm",
-        twitter: "https://twitter.com/ecomm",
-      },
-      contact: {
-        address: "E-Comm, 4578 Marmora Road, Glasgow D04 89GR",
-      },
-      footerLinks: [
-        { title: "Information", links: ["About Us", "Privacy Policy", "Terms & Conditions"] },
-        { title: "Service", links: ["Customer Support", "Returns", "FAQ"] },
-        { title: "My Account", links: ["Login", "Register", "Order History"] },
-        { title: "Our Offers", links: ["Discounts", "Gift Cards", "Coupons"] },
-      ],
-      paymentMethods: [
-        { src: "/assets/paypal.png", alt: "PayPal" },
-        { src: "/assets/visa.png", alt: "Visa" },
-        { src: "/assets/master-card.png", alt: "MasterCard" },
-        { src: "/assets/western-union.png", alt: "Western Union" },
-      ],
-      copyrightText: "© 2024 E-Comm. All rights reserved.",
-    },
   };
 
   return NextResponse.json(data);

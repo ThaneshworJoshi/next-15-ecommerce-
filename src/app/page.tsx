@@ -1,4 +1,4 @@
-import { ContentCardRow, DynamicHomeContent, Footer, MiniProductCardRow } from "@/components";
+import { ContentCardRow, DynamicHomeContent, MiniProductCardRow } from "@/components";
 import HeroBanner from "@/components/herobanner/HeroBanner.componet";
 import { MediaBreaker } from "@/components/shared/mediabreaker";
 import { Suspense } from "react";
@@ -54,9 +54,6 @@ export default async function HomePage() {
 
       {/* Mini Product Card Row */}
       <MiniProductCardRow {...data.miniProductCardRowData} />
-
-      {/* Footer */}
-      <Footer {...data.footerData} />
     </div>
   );
 }

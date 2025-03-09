@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { Header } from "@/components/layout";
+import { Footer } from "@/components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,34 @@ const categoryData: Record<string, string[]> = {
   BELT: ["Leather Belts", "Fabric Belts", "Designer Belts"],
 };
 
+const footerData = {
+  brand: {
+    logoSrc: "/logo.svg",
+    name: "E-Comm",
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  },
+  socialLinks: {
+    facebook: "https://facebook.com/ecomm",
+    twitter: "https://twitter.com/ecomm",
+  },
+  contact: {
+    address: "E-Comm, 4578 Marmora Road, Glasgow D04 89GR",
+  },
+  footerLinks: [
+    { title: "Information", links: ["About Us", "Privacy Policy", "Terms & Conditions"] },
+    { title: "Service", links: ["Customer Support", "Returns", "FAQ"] },
+    { title: "My Account", links: ["Login", "Register", "Order History"] },
+    { title: "Our Offers", links: ["Discounts", "Gift Cards", "Coupons"] },
+  ],
+  paymentMethods: [
+    { src: "/assets/paypal.png", alt: "PayPal" },
+    { src: "/assets/visa.png", alt: "Visa" },
+    { src: "/assets/master-card.png", alt: "MasterCard" },
+    { src: "/assets/western-union.png", alt: "Western Union" },
+  ],
+  copyrightText: "© 2024 E-Comm. All rights reserved.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -49,6 +78,9 @@ export default function RootLayout({
           categoryData={categoryData}
         />
         {children}
+
+        {/* Footer */}
+        <Footer {...footerData} />
       </body>
     </html>
   );
