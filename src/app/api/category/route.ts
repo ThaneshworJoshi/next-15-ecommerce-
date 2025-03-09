@@ -14,6 +14,7 @@ export async function GET() {
         discount: 25,
         rating: 5,
         category: "Sneakers",
+        isHot: true,
         productLink: "/products/sneakers-1",
         description: "Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lectus lorem nunc leifend laorevtr istique et congue. Vivamus adipiscin vulputate g nisl ut dolor ..."
       },

@@ -9,26 +9,30 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { MediaBreaker, ProductCard, ProductCardProps } from "@/components";
+import Sidebar from "@/components/shared/sidebar/SideBar.component";
 
 interface PageProps {
     params: Promise<{ category: string }>;
 }
 
 export default function ProductListingPage({ params }: PageProps) {
-    const { category } = use(params); 
-
+    const { category } = use(params);
+    
     // State for products and filters
-    const [products, setProducts] = useState<ProductCardProps[]>([]);
+    // const [products, setProducts] = useState<ProductCardProps[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
-    const [filter, setFilter] = useState<string>("all");
+    // const [filter, setFilter] = useState<string>("all");
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [sidebarData, setSidebarData] = useState<any>(null);
+    
     useEffect(() => {
         async function fetchProductData() {
             try {
                 const response = await fetch(`/api/category?category=${category}`);
                 const result = await response.json();
 
-                setProducts(result.productsData || []);
+                // setProducts(result.productsData || []);
                 setFilteredProducts(result.productsData || []);
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -40,20 +44,19 @@ export default function ProductListingPage({ params }: PageProps) {
         }
     }, [category]);
 
-    // Handle filter changes
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedFilter = e.target.value;
-        setFilter(selectedFilter);
-
-        if (selectedFilter === "all") {
-            setFilteredProducts(products);
-        } else {
-            const filtered = products.filter((product) =>
-                product?.category?.toLowerCase().includes(selectedFilter.toLowerCase())
-            );
-            setFilteredProducts(filtered);
+    useEffect(() => {
+        async function fetchSidebarData() {
+          try {
+            const response = await fetch("/api/sidebar");
+            const data = await response.json();
+            console.log(data, 'data')
+            setSidebarData(data);
+          } catch (error) {
+            console.error("Failed to fetch sidebar data:", error);
+          }
         }
-    };
+        fetchSidebarData();
+    }, []);
 
     return (
         <div className="mx-auto">
@@ -79,17 +82,12 @@ export default function ProductListingPage({ params }: PageProps) {
             <div className="flex flex-row max-w-[1500px] mx-auto">
                 {/* Sidebar for Filters */}
                 <div className="hidden md:block basis-1/4 mr-5">
-                    <h2 className="text-lg font-semibold mb-2">Filter Products</h2>
-                    <select
-                        className="w-full p-2 border rounded"
-                        value={filter}
-                        onChange={handleFilterChange}
-                    >
-                        <option value="all">All Products</option>
-                        <option value="shoes">Shoes</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing</option>
-                    </select>
+                    {sidebarData && <Sidebar
+                        hotDeals={sidebarData.hotdeals}
+                        categories={sidebarData.categories}
+                        brands={sidebarData.brands}
+                        colors={sidebarData.colors}
+                    />}
                 </div>
 
                 {/* Main Content */}
@@ -101,7 +99,7 @@ export default function ProductListingPage({ params }: PageProps) {
                         description="Performance and design. Taken right to the edge."
                         events={{ onClick: () => {} }}
                     />
-
+                    
                     {/* Product List */}
                     <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-1">
                         {filteredProducts.length > 0 ? (
