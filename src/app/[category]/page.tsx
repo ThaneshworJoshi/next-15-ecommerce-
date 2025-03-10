@@ -8,7 +8,7 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { MediaBreaker, ProductCard, ProductCardProps } from "@/components";
+import { MediaBreaker, ProductCard, ProductCardProps, ProductListHeader } from "@/components";
 import Sidebar from "@/components/shared/sidebar/SideBar.component";
 
 interface PageProps {
@@ -18,6 +18,15 @@ interface PageProps {
 export default function ProductListingPage({ params }: PageProps) {
     const { category } = use(params);
     
+    const totalProducts = 13; // Example
+    const handleSortChange = (sort: string) => {
+        console.log("Sort By:", sort);
+    };
+    const handleItemsPerPageChange = (items: number) => {
+        console.log("Show:", items);
+    };
+
+
     // State for products and filters
     // const [products, setProducts] = useState<ProductCardProps[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
@@ -78,7 +87,7 @@ export default function ProductListingPage({ params }: PageProps) {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-
+           
             <div className="flex flex-row max-w-[1500px] mx-auto">
                 {/* Sidebar for Filters */}
                 <div className="hidden md:block basis-1/4 mr-5">
@@ -99,7 +108,13 @@ export default function ProductListingPage({ params }: PageProps) {
                         description="Performance and design. Taken right to the edge."
                         events={{ onClick: () => {} }}
                     />
-                    
+                    <div className="my-4">
+                        <ProductListHeader
+                            totalItems={totalProducts}
+                            onSortChange={handleSortChange}
+                            onItemsPerPageChange={handleItemsPerPageChange}
+                        />
+                    </div>
                     {/* Product List */}
                     <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-1">
                         {filteredProducts.length > 0 ? (
