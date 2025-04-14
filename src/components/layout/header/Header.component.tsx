@@ -187,7 +187,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="py-8">
         <div className="container flex items-center justify-between px-4 mx-auto">
           <div className="flex items-center gap-2 cursor-pointer">
-            <Image src="./logo.svg" alt="E-com logo" width={44} height={44} />
+            <Image src="/logo.svg" alt="E-com logo" width={44} height={44} />
             <span className="text-lg font-bold text-neutral-dark">E-Comm</span>
           </div>
 
