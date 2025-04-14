@@ -18,51 +18,51 @@ export const ProductListHeader = ({ totalItems, onSortChange, onItemsPerPageChan
       <div className="flex gap-10 items-center">
         {/* 🏷️ Total Items */}
         <p className="text-gray-600">{totalItems} Items</p>
+        <div className="flex flex-col md:flex-row gap-x-6 gap-y-3">
+          {/* 🔽 Sort By Dropdown */}
+          <div className="flex items-center justify-between w-full max-w-[190px] space-x-4">
+            <label className="text-gray-600 min-w-14">Sort by:</label>
+            <Select
+              value={sortBy}
+              onValueChange={(value) => {
+                setSortBy(value);
+                onSortChange(value);
+              }}
+            >
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="popularity">Popularity</SelectItem>
+                <SelectItem value="price-low">Price: Low to High</SelectItem>
+                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="newest">Newest First</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-        {/* 🔽 Sort By Dropdown */}
-        <div className="flex items-center space-x-4">
-          <label className="text-gray-600">Sort by:</label>
-          <Select 
-            value={sortBy} 
-            onValueChange={(value) => {
-              setSortBy(value);
-              onSortChange(value);
-            }}
-          >
-            <SelectTrigger className="w-48">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="popularity">Popularity</SelectItem>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-              <SelectItem value="newest">Newest First</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* 🔽 Items Per Page Dropdown */}
-        <div className="flex items-center space-x-4">
-          <label className="text-gray-600">Show:</label>
-          <Select 
-            value={itemsPerPage.toString()} 
-            onValueChange={(value) => {
-              setItemsPerPage(parseInt(value));
-              onItemsPerPageChange(parseInt(value));
-            }}
-          >
-            <SelectTrigger className="w-24">
-              <SelectValue placeholder="Items per page" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="12">12</SelectItem>
-              <SelectItem value="24">24</SelectItem>
-              <SelectItem value="48">48</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* 🔽 Items Per Page Dropdown */}
+          <div className="flex items-center justify-between space-x-4">
+            <label className="text-gray-600 min-w-14">Show:</label>
+            <Select
+              value={itemsPerPage.toString()}
+              onValueChange={(value) => {
+                setItemsPerPage(parseInt(value));
+                onItemsPerPageChange(parseInt(value));
+              }}
+            >
+              <SelectTrigger className="w-24">
+                <SelectValue placeholder="Items per page" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="12">12</SelectItem>
+                <SelectItem value="24">24</SelectItem>
+                <SelectItem value="48">48</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
-
       {/* 🔹 Right Section - Layout Toggle Buttons */}
       <div className="flex gap-2">
         <Button
