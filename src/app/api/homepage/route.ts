@@ -421,7 +421,7 @@ export async function GET() {
           rating: 3,
           originalPrice: 49.99,
           price: 39.99,
-          productLink: "/product/bluetooth-speaker",
+          productLink: "/products/bluetooth-speaker",
           media: { imageSrc: "/assets/sneakers1.png", alt: "Bluetooth Speaker" },
         },
         {
@@ -429,7 +429,7 @@ export async function GET() {
           rating: 4,
           originalPrice: 59.99,
           price: 49.99,
-          productLink: "/product/red-nike-sneakers",
+          productLink: "/products/red-nike-sneakers",
           media: { imageSrc: "/assets/sneakers2.png", alt: "Red Nike Sneakers" },
         },
         {
@@ -437,7 +437,7 @@ export async function GET() {
           rating: 5,
           originalPrice: 69.99,
           price: 59.99,
-          productLink: "/product/green-adidas-sneakers",
+          productLink: "/products/green-adidas-sneakers",
           media: { imageSrc: "/assets/sneakers3.png", alt: "Green Adidas Sneakers" },
         },
       ],

@@ -18,6 +18,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   isHot = false,
   productLink,
   description,
+  category,
   variant = "vertical",
   events,
 }) => {
@@ -70,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           }`}
         >
           {/* Title */}
-          <Link href={productLink} passHref className="hover:underline">
+          <Link href={`${productLink}?category=${category}`} passHref className="hover:underline">
             <h3 className={`font-bold ${variant === "horizontal" ? "text-xl" : "text-md"}`}>
               {title}
             </h3>

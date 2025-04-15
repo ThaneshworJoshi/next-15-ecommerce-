@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 
 const navItems = [
   { label: "HOME", href: "/" },
-  { label: "BAGS", href: "/bags" },
-  { label: "SNEAKERS", href: "/sneakers" },
-  { label: "BELT", href: "/belt" },
-  { label: "CONTACT", href: "/contact" },
+  { label: "BAGS", href: "/category/bags" },
+  { label: "SNEAKERS", href: "/category/sneakers" },
+  { label: "BELT", href: "/category/belt" },
+  { label: "CONTACT", href: "/category/contact" },
 ];
 
 const categoryData: Record<string, string[]> = {

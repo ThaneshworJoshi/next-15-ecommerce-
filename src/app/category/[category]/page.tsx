@@ -16,8 +16,9 @@ interface PageProps {
 }
 
 export default function ProductListingPage({ params }: PageProps) {
-    const { category } = use(params);
     
+    const { category } = use(params);
+
     const totalProducts = 13; // Example
     const handleSortChange = (sort: string) => {
         console.log("Sort By:", sort);
@@ -120,7 +121,7 @@ export default function ProductListingPage({ params }: PageProps) {
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
                                 <div key={product.id} className="mx-auto mb-4 border-spacing-1">
-                                    <ProductCard {...product} variant="horizontal" />
+                                    <ProductCard {...product} category={category} variant="horizontal" />
                                 </div>
                             ))
                         ) : (

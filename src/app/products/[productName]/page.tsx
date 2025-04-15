@@ -20,20 +20,23 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Heart } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 interface PageProps {
     params: Promise<{ category: string; productName: string }>;
 }
 
 export default function ProductDetailPage({ params }: PageProps) {
-    const { category, productName } = use(params);
+    const { productName } = use(params);
+    const searchParams = useSearchParams();
 
+    const category = searchParams.get('category');
+    
     const [product, setProduct] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const [activeImage, setActiveImage] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
     const [quantity, setQuantity] = useState(1);
-
     const handleQuantityChange = (type: "increment" | "decrement") => {
         setQuantity((prev) =>
             type === "increment" ? prev + 1 : prev > 1 ? prev - 1 : 1
