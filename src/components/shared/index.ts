@@ -8,3 +8,4 @@ export * from "./footer";
 export * from "./mediabreaker";
 export * from "./sidebar";
 export * from "./product-list-header";
+export * from "./product-search-modal";

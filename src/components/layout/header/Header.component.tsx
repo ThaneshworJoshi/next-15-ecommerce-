@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import { HeaderProps } from "./Header.types";
@@ -47,6 +47,7 @@ import { FaCaretDown, FaRegUser } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ProductSearchModal } from "@/components/shared";
 
 export const Header: React.FC<HeaderProps> = ({
   navItems,
@@ -54,6 +55,7 @@ export const Header: React.FC<HeaderProps> = ({
   cartTotal,
 }) => {
   const pathName = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="w-full bg-white">
@@ -214,6 +216,7 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
         </div>
       </div>
+      <ProductSearchModal data={{isOpen}} events={{onClose:() => setIsOpen(false)}} />
     </header>
   );
 };
