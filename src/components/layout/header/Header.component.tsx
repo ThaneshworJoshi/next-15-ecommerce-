@@ -127,18 +127,17 @@ export const Header: React.FC<HeaderProps> = ({
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-            <Button
-              variant="ghost"
-              size="lg"
+            <Link
+              href='/checkout/cart'
               className="relative w-full h-full px-0 mr-8"
             >
-              <ShoppingCart className="scale-150" />
+              <ShoppingCart />
               {cartItemCount > 0 && (
                 <span className="absolute -top-3.5 -right-4 bg-primary-red text-white rounded-full w-5 h-5 text-xs flex items-center justify-center border-2 border-white">
                   {cartItemCount}
                 </span>
               )}
-            </Button>
+            </Link>
             <div className="hidden sm:block">
               <span className="mr-8 text-neutral-secondary ">Items</span>
               <span className="text-neutral-muted">{cartTotal}</span>

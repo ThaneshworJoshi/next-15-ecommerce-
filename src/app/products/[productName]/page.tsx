@@ -22,7 +22,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Heart } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface PageProps {
     params: Promise<{ category: string; productName: string }>;
@@ -31,6 +31,7 @@ interface PageProps {
 export default function ProductDetailPage({ params }: PageProps) {
     const { productName } = use(params);
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     const category = searchParams.get('category');
     
@@ -44,6 +45,10 @@ export default function ProductDetailPage({ params }: PageProps) {
             type === "increment" ? prev + 1 : prev > 1 ? prev - 1 : 1
         );
     };
+
+    const handleAddToCart = () => {
+        router.push('/checkout/cart')
+    }
 
     useEffect(() => {
         async function fetchProductData() {
@@ -200,7 +205,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                                 <Button onClick={() => handleQuantityChange("increment")} className="bg-transparent text-primary">+</Button>
                             </div>
                             <div className="flex gap-3 items-center">
-                                <Button onClick={() => {}} size="lg" className="text-primary bg-primary-10 flex items-center gap-1">
+                                <Button onClick={() => {handleAddToCart()}} size="lg" className="text-primary bg-primary-10 flex items-center gap-1">
                                     <MdOutlineShoppingCart />
                                     Add to cart
                                 </Button>
