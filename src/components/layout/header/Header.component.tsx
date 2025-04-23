@@ -187,10 +187,10 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Bottom section Logo and Navigation */}
       <div className="py-8">
         <div className="container flex items-center justify-between px-4 mx-auto">
-          <div className="flex items-center gap-2 cursor-pointer">
+          <Link href={'/'} className="flex items-center gap-2 cursor-pointer">
             <Image src="/logo.svg" alt="E-com logo" width={44} height={44} />
             <span className="text-lg font-bold text-neutral-dark">E-Comm</span>
-          </div>
+          </Link>
 
           {/* Navigation */}
           <nav className="hidden sm:flex gap-3 lg:gap-4 xl:gap-6  [&>a:last-of-type]:mx-0">
