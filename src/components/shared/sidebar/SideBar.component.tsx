@@ -5,6 +5,7 @@ import Link from "next/link";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { SidebarItemProps, SidebarProps } from "./SideBar.type";
+import { PriceRangeSlider } from "../price-range-slider/PriceRangeSlider.component";
 
 export const SidebarItem = ({ icon, text, link, count }: SidebarItemProps) => {
   return (
@@ -18,6 +19,7 @@ export const SidebarItem = ({ icon, text, link, count }: SidebarItemProps) => {
 
 const Sidebar = ({ hotDeals, brands, colors }: SidebarProps) => {
   const [selectedColor, setSelectedColor] = useState<string>("");
+  const [priceRange, setPriceRange] = useState<[number, number]>([220, 470]);
 
   return (
     <div className="flex">
@@ -37,8 +39,8 @@ const Sidebar = ({ hotDeals, brands, colors }: SidebarProps) => {
           <h3 className="text-lg font-semibold uppercase mb-6">Colors</h3>
           <RadioGroup
             value={selectedColor}
-            onValueChange={setSelectedColor} // ✅ Updates selected color
-            className="flex flex-row space-x-3" // ✅ Horizontal alignment
+            onValueChange={setSelectedColor} // Updates selected color
+            className="flex flex-row space-x-3" // Horizontal alignment
           >
             {colors?.map((color) => (
               <div key={color.id} className="relative flex items-center justify-center">
@@ -55,14 +57,23 @@ const Sidebar = ({ hotDeals, brands, colors }: SidebarProps) => {
                   htmlFor={`color-${color.id}`}
                   className="w-8 h-8 rounded-full border-2 cursor-pointer flex items-center justify-center transition-all relative z-10"
                   style={{
-                    backgroundColor: color.hex, // ✅ Fill with color
-                    borderColor: "white", // ✅ Always white border
+                    backgroundColor: color.hex, // Fill with color
+                    borderColor: "white", // Always white border
                   }}
                 />
               </div>
             ))}
           </RadioGroup>
         </div>
+
+        {/* Price Range Section */}
+        <PriceRangeSlider
+          range={priceRange}
+          setRange={setPriceRange}
+          min={50}
+          max={1000}
+          step={50}
+        />
 
         {/* Brands Section */}
         <div className="bg-neutral-background p-5">
