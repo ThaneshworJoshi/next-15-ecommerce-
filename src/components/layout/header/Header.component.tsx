@@ -142,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="mr-8 text-neutral-secondary ">Items</span>
               <span className="text-neutral-muted">{cartTotal}</span>
             </div>
-            <Button variant="ghost" size="lg" className="w-full h-full px-0">
+            <Button onClick={() => setIsOpen(true)} variant="ghost" size="lg" className="w-full h-full px-0">
               <IoSearch className="scale-150" />
             </Button>
 
