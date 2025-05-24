@@ -57,6 +57,9 @@ export const Header: React.FC<HeaderProps> = ({
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  const onOpenSearchModal = () => {
+    setIsOpen(true);
+  };
   return (
     <header className="w-full bg-white">
       {/* Top Seciton  */}
@@ -142,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="mr-8 text-neutral-secondary ">Items</span>
               <span className="text-neutral-muted">{cartTotal}</span>
             </div>
-            <Button onClick={() => setIsOpen(true)} variant="ghost" size="lg" className="w-full h-full px-0">
+            <Button onClick={onOpenSearchModal} variant="ghost" size="lg" className="w-full h-full px-0">
               <IoSearch className="scale-150" />
             </Button>
 

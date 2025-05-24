@@ -9,3 +9,4 @@ export * from "./mediabreaker";
 export * from "./sidebar";
 export * from "./product-list-header";
 export * from "./product-search-modal";
+export * from "./contact-form";
