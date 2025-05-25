@@ -104,9 +104,9 @@ export default function ProductListingPage({ params }: PageProps) {
                 <div className="basis-full md:basis-3/4">
                     <MediaBreaker
                         variant="slim"
-                        media={{ src: "/assets/mb-shoe.png", alt: "Adidas Sneakers" }}
-                        title="Adidas Men Running Sneakers"
-                        description="Performance and design. Taken right to the edge."
+                        media={{ src: "/assets/accessories/glasspng.png", alt: "Soft pink cat collar with bell" }}
+                        title= "Adjustable Pet Sunglasses"
+                        description= "Stylish round sunglasses with cute cat ear frames — perfect blend of fun and UV protection for your pet."
                         events={{ onClick: () => {} }}
                     />
                     <div className="my-4">
@@ -120,7 +120,7 @@ export default function ProductListingPage({ params }: PageProps) {
                     <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-1">
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
-                                <div key={product.id} className="mx-auto mb-4 border-spacing-1">
+                                <div key={product.id} className="mb-4 border-spacing-1">
                                     <ProductCard {...product} category={category} variant="horizontal" />
                                 </div>
                             ))

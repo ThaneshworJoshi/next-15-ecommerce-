@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 
 const navItems = [
   { label: "HOME", href: "/" },
-  { label: "BAGS", href: "/category/bags" },
-  { label: "SNEAKERS", href: "/category/sneakers" },
-  { label: "BELT", href: "/category/belt" },
-  { label: "CONTACT", href: "/category/contact" },
+  { label: "BEDS", href: "/category/beds" },
+  { label: "COLLARS", href: "/category/collars" },
+  { label: "TOYS", href: "/category/toys" },
+  { label: "CONTACT", href: "/contact" },
 ];
 
 const categoryData: Record<string, string[]> = {
@@ -36,15 +36,15 @@ const categoryData: Record<string, string[]> = {
 const footerData = {
   brand: {
     logoSrc: "/logo.svg",
-    name: "E-Comm",
+    name: "Pawssentials",
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   },
   socialLinks: {
-    facebook: "https://facebook.com/ecomm",
-    twitter: "https://twitter.com/ecomm",
+    facebook: "https://facebook.com/petpaws",
+    twitter: "https://twitter.com/petpaws",
   },
   contact: {
-    address: "E-Comm, 4578 Marmora Road, Glasgow D04 89GR",
+    address: "Pawssentials, 4578 Marmora Road, Glasgow D04 89GR",
   },
   footerLinks: [
     { title: "Information", links: ["About Us", "Privacy Policy", "Terms & Conditions"] },
@@ -58,7 +58,7 @@ const footerData = {
     { src: "/assets/master-card.png", alt: "MasterCard" },
     { src: "/assets/western-union.png", alt: "Western Union" },
   ],
-  copyrightText: "© 2024 E-Comm. All rights reserved.",
+  copyrightText: "© 2025 petpaws. All rights reserved.",
 };
 
 export default function RootLayout({

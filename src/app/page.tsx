@@ -27,7 +27,7 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto">
-      <HeroBanner title="Super Flash Sale 50% Off" media={{ imageUrl: "./herobanner-img.png", altText: "hero banner alt" }} />
+      <HeroBanner title="Super Flash Sale 50% Off" media={{ imageUrl: "/herobanner1.jpg", altText: "hero banner alt" }} />
 
       {/* Dynamic Data (fetched Client-Side) */}
       <Suspense fallback={<p className="text-center">Loading...</p>}>
@@ -38,9 +38,9 @@ export default async function HomePage() {
 
       {/* Media Breaker */}
       <MediaBreaker
-        media={{ src: "/assets/mb-shoe.png", alt: "" }}
-        title="Adidas Men Running Sneakers"
-        description="Performance and design. Taken right to the edge."
+        media={{ src: "/assets/accessories/glasspng.png", alt: "Soft pink cat collar with bell" }}
+        title= "Adjustable Pet Sunglasses"
+        description= "Stylish round sunglasses with cute cat ear frames — perfect blend of fun and UV protection for your pet."
         events={{ onClick: () => {} }}
       />
 
@@ -49,8 +49,6 @@ export default async function HomePage() {
       {/* Vertical Content Cards */}
       <ContentCardRow cards={data.cardsDataV} />
 
-      {/* Latest News (Horizontal Content Cards) */}
-      <ContentCardRow title="LATEST NEWS" cards={data.cardsDataH} />
 
       {/* Mini Product Card Row */}
       <MiniProductCardRow {...data.miniProductCardRowData} />
