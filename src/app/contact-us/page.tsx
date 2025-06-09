@@ -33,7 +33,7 @@ export default function ContactUsPage({ params }: PageProps) {
 
     return (
         <div className="mx-auto container">
-            <ContactForm  />
+            {/* <ContactForm  /> */}
         </div>
     );
 }

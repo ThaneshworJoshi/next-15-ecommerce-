@@ -8,7 +8,7 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { MediaBreaker, ProductCard, ProductCardProps, ProductListHeader } from "@/components";
+import { MediaBreaker, MediaBreakerProps, ProductCard, ProductCardProps, ProductListHeader } from "@/components";
 import Sidebar from "@/components/shared/sidebar/SideBar.component";
 
 interface PageProps {
@@ -31,6 +31,7 @@ export default function ProductListingPage({ params }: PageProps) {
     // State for products and filters
     // const [products, setProducts] = useState<ProductCardProps[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductCardProps[]>([]);
+    const [mediaBreakerData, setMediaBreakerData] = useState<Omit<MediaBreakerProps, 'events'> | null>(null);
     // const [filter, setFilter] = useState<string>("all");
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,8 +42,8 @@ export default function ProductListingPage({ params }: PageProps) {
             try {
                 const response = await fetch(`/api/category?category=${category}`);
                 const result = await response.json();
-
-                // setProducts(result.productsData || []);
+                console.log(result, 'result')
+                setMediaBreakerData(result.mediaBreaker || {});
                 setFilteredProducts(result.productsData || []);
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -67,7 +68,7 @@ export default function ProductListingPage({ params }: PageProps) {
         }
         fetchSidebarData();
     }, []);
-
+    console.log(mediaBreakerData, 'xman')
     return (
         <div className="mx-auto">
             {/* Breadcrumb Navigation */}
@@ -102,13 +103,10 @@ export default function ProductListingPage({ params }: PageProps) {
 
                 {/* Main Content */}
                 <div className="basis-full md:basis-3/4">
-                    <MediaBreaker
-                        variant="slim"
-                        media={{ src: "/assets/accessories/glasspng.png", alt: "Soft pink cat collar with bell" }}
-                        title= "Adjustable Pet Sunglasses"
-                        description= "Stylish round sunglasses with cute cat ear frames — perfect blend of fun and UV protection for your pet."
+                    {mediaBreakerData && <MediaBreaker
+                        {...mediaBreakerData}
                         events={{ onClick: () => {} }}
-                    />
+                    />}
                     <div className="my-4">
                         <ProductListHeader
                             totalItems={totalProducts}

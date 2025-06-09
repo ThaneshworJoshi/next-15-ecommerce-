@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 
-type ProductCategory = 'toys' | 'collars' | 'beds';
+export type ProductCategory = 'toys' | 'collars' | 'beds';
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   media: {
@@ -18,7 +17,7 @@ interface Product {
   description: string;
 }
 
-const allProducts: Record<ProductCategory, Product[]> = {
+export const allProducts: Record<ProductCategory, Product[]> = {
   toys: [
     {
       id: 1,
@@ -206,59 +205,3 @@ const allProducts: Record<ProductCategory, Product[]> = {
     }
   ]
 };
-// media breaker config per category
-const mediaBreakerConfig: Record<string, unknown> = {
-  collars: {
-    variant: "slim",
-    media: {
-      src: "/assets/mediabreaker/collars.jpg",
-      alt: "Soft pink cat collar with bell"
-    },
-    title: "Adjustable Pet Sunglasses",
-    description: "Stylish round sunglasses with cute cat ear frames — perfect blend of fun and UV protection for your pet."
-  },
-  beds: {
-    variant: "slim",
-    media: {
-      src: "/assets/mediabreaker/plushbed.jpg",
-      alt: "Warm Plush Cat Bed"
-    },
-    title: "Cozy Plush Cat Beds",
-    description: "Give your cat the warmest naps with our ultra-soft plush beds."
-  },
-  toys: {
-    variant: "slim",
-    media: {
-      src: "/assets/mediabreaker/wandtoy.png",
-      alt: "Interactive Feather Wand Toy"
-    },
-    title: "Playtime Favorites",
-    description: "Engage your pets with colorful, fun toys designed for endless entertainment and bonding."
-  }
-};
-
-const isValidCategory = (value: string): value is ProductCategory => {
-  return ["toys", "collars", 'beds'].includes(value);
-};
-
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const category = searchParams.get("category")?.toLowerCase() ?? '';
-  let mediaBreaker = {};
-  let productsData: Product[] = [];
-
-  if (category && isValidCategory(category)) {
-    productsData = allProducts[category];
-  }
-
-  if (category && isValidCategory(category)) {
-    productsData = allProducts[category];
-    mediaBreaker = mediaBreakerConfig[category] ?? {};
-  }
-
-  return NextResponse.json({
-    category,
-    productsData,
-    mediaBreaker,
-  });
-}

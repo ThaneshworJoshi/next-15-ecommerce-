@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { ContactFormProps } from "./ContactForm.type";
 import { FC } from "react";
 
-const ContactForm: FC<ContactFormProps> = ({ data, events }) => {
+const ContactForm: FC<ContactFormProps> = ({  }) => {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden">
