@@ -1,38 +1,70 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { getCart } from "@/lib/cartApi";
 
-// Fetch cart data from API
-async function getCartpageData() {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/cart`, {
-      cache: "no-store",
-    });
+export default function CartPage() {
+  const [cart, setCart] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [coupon, setCoupon] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch cart data");
+  useEffect(() => {
+    async function fetchCart() {
+      setLoading(true);
+      try {
+        const data = await getCart();
+        setCart(data);
+      } catch (err) {
+        setError("Error loading cart data.");
+      } finally {
+        setLoading(false);
+      }
     }
+    fetchCart();
+  }, []);
 
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching cart data:", error);
-    return null;
-  }
-}
+  const handleQuantity = (id: string, type: "inc" | "dec") => {
+    if (!cart) return;
+    setCart((prev: any) => {
+      const updated = prev.products.map((item: any) => {
+        if (item.id !== id) return item;
+        let newQty = item.quantity + (type === "inc" ? 1 : -1);
+        if (newQty < 1) newQty = 1;
+        return { ...item, quantity: newQty };
+      });
+      return { ...prev, products: updated };
+    });
+  };
 
-export default async function CartPage() {
-  const data = await getCartpageData();
-  if (!data) {
-    return <p className="text-center text-red-500">Error loading data.</p>;
-  }
+  const handleRemove = (id: string) => {
+    if (!cart) return;
+    setCart((prev: any) => ({
+      ...prev,
+      products: prev.products.filter((item: any) => item.id !== id),
+    }));
+  };
 
-  const subtotal = data.products.reduce(
+  const handleRedeem = () => {
+    if (coupon.trim().toLowerCase() === "save10") {
+      setCouponApplied(true);
+    } else {
+      setCouponApplied(false);
+      alert("Invalid coupon code");
+    }
+  };
+
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (error || !cart) return <p className="text-center text-red-500">{error || "Error loading data."}</p>;
+
+  const subtotal = cart.products.reduce(
     (sum: number, item: any) => sum + item.unitPrice * item.quantity,
     0
   );
   const shipping = 20;
-  const couponApplied = false;
-  const total = subtotal + shipping;
+  const total = subtotal + shipping - (couponApplied ? 10 : 0);
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -48,10 +80,10 @@ export default async function CartPage() {
             </tr>
           </thead>
           <tbody>
-            {data.products.map((item: any) => (
+            {cart.products.map((item: any) => (
               <tr key={item.id} className="border-b text-sm">
                 <td className="flex items-center gap-6 py-9">
-                  <button className="rounded-full text-red-500 bg-red-100 font-bold px-2 py-1 mr-4">✕</button>
+                  <button onClick={() => handleRemove(item.id)} className="rounded-full text-red-500 bg-red-100 font-bold px-2 py-1 mr-4">✕</button>
                   <Image src={item.media.imageSrc} alt={item.media.alt} width={80} height={80} />
                   <span>{item.name}</span>
                 </td>
@@ -59,9 +91,9 @@ export default async function CartPage() {
                 <td>
                   <div className="flex items-center justify-center py-1">
                     <div className="flex items-center gap-x-5 bg-gray-100 rounded px-2 py-1">
-                      <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary">-</Button>
+                      <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary" onClick={() => handleQuantity(item.id, "dec")}>-</Button>
                       <span>{item.quantity}</span>
-                      <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary">+</Button>
+                      <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary" onClick={() => handleQuantity(item.id, "inc")}>+</Button>
                     </div>
                   </div>
                 </td>
@@ -74,9 +106,9 @@ export default async function CartPage() {
 
       {/* Card view for mobile */}
       <div className="grid grid-cols-1 gap-6 mb-10 md:hidden">
-        {data.products.map((item: any) => (
+        {cart.products.map((item: any) => (
           <div key={item.id} className="w-full border rounded-lg p-4 shadow-sm relative">
-            <button className="absolute top-2 right-2 rounded-full text-red-500 bg-red-100 font-bold px-2 py-1">
+            <button onClick={() => handleRemove(item.id)} className="absolute top-2 right-2 rounded-full text-red-500 bg-red-100 font-bold px-2 py-1">
               ✕
             </button>
 
@@ -97,9 +129,9 @@ export default async function CartPage() {
             <div className="flex items-center justify-between text-sm mb-2">
               <span>Quantity:</span>
               <div className="flex items-center gap-x-3 bg-gray-100 rounded px-2 py-1">
-                <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary">-</Button>
+                <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary" onClick={() => handleQuantity(item.id, "dec")}>-</Button>
                 <span>{item.quantity}</span>
-                <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary">+</Button>
+                <Button variant="ghost" size="sm" className="border-none shadow-none px-2 text-primary" onClick={() => handleQuantity(item.id, "inc")}>+</Button>
               </div>
             </div>
 
@@ -119,8 +151,10 @@ export default async function CartPage() {
             type="text"
             placeholder="Voucher code"
             className="border px-4 py-2 w-64 rounded-l-md"
+            value={coupon}
+            onChange={e => setCoupon(e.target.value)}
           />
-          <Button className="bg-primary text-white px-4 py-2 rounded-r-md rounded-l-none hover:bg-secondary hover:text-black">
+          <Button className="bg-primary text-white px-4 py-2 rounded-r-md rounded-l-none hover:bg-secondary hover:text-black" onClick={handleRedeem}>
             Redeem
           </Button>
         </div>
