@@ -1,24 +1,8 @@
-import { ContentCardRow, DynamicHomeContent, MiniProductCardRow } from "@/components";
+import { ContentCardRow, BestSeller, FeaturedProductCard, FeaturedProductCardProps, MiniProductCardRow } from "@/components";
 import HeroBanner from "@/components/herobanner/HeroBanner.componet";
 import { MediaBreaker } from "@/components/shared/mediabreaker";
 import { Suspense } from "react";
-
-async function getHomepageData() {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/homepage`, {
-      cache: "no-store", // Prevent caching issues
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch homepage data");
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching homepage data:", error);
-    return null;
-  }
-}
+import { getHomepageData } from "@/lib/api";
 
 export default async function HomePage() {
   const data = await getHomepageData();
@@ -29,12 +13,24 @@ export default async function HomePage() {
     <div className="mx-auto">
       <HeroBanner title="Super Flash Sale 50% Off" media={{ imageUrl: "/herobanner1.jpg", altText: "hero banner alt" }} />
 
+      {/* Dynamic Data: Featured Products */}
+      <div className="relative flex justify-center flex-wrap mt-0 md:-mt-20 z-20">
+        {data.featuredProducts.map((product: FeaturedProductCardProps, index: number) => (
+          <FeaturedProductCard key={index} {...product} />
+        ))}
+      </div>
+
       {/* Dynamic Data (fetched Client-Side) */}
       <Suspense fallback={<p className="text-center">Loading...</p>}>
-        <DynamicHomeContent />
+        <BestSeller />
       </Suspense>
      
       <div className="h-10"></div>
+
+      <MiniProductCardRow {...data.miniProductCardRowData} />
+
+      <div className="h-10"></div>
+  
 
       {/* Media Breaker */}
       <MediaBreaker
