@@ -10,3 +10,6 @@ export * from "./sidebar";
 export * from "./product-list-header";
 export * from "./product-search-modal";
 export * from "./contact-form";
+export * from "./product-list-client";
+export * from "./pagination";
+export * from "./category-client";
