@@ -26,9 +26,18 @@ interface ProductListClientProps {
   category: string;
   totalProducts: number;
   onFiltersChange?: (filters: FilterState) => void;
+  onFilterClick?: () => void;
+  activeFiltersCount?: number;
 }
 
-export default function ProductListClient({ products, category, totalProducts, onFiltersChange }: ProductListClientProps) {
+export default function ProductListClient({ 
+  products, 
+  category, 
+  totalProducts, 
+  onFiltersChange,
+  onFilterClick,
+  activeFiltersCount = 0
+}: ProductListClientProps) {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -115,6 +124,8 @@ export default function ProductListClient({ products, category, totalProducts, o
           totalItems={filteredProducts.length}
           onSortChange={handleSortChange}
           onItemsPerPageChange={handleItemsPerPageChange}
+          onFilterClick={onFilterClick}
+          activeFiltersCount={activeFiltersCount}
         />
       </div>
       
