@@ -1,1 +1,2 @@
-export { default } from './CategoryClient.component'; 
+export { default } from './CategoryClient.component';
+export * from './CategoryClient.types'; 

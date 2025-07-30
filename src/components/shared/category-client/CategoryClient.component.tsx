@@ -5,45 +5,8 @@ import { MediaBreaker } from "@/components";
 import Sidebar from "@/components/shared/sidebar/SideBar.component";
 import ProductListClient from "@/components/shared/product-list-client";
 import { FilterState } from "@/components/shared/sidebar/SideBar.type";
-import { Button } from "@/components/ui/button";
-import { Filter, X } from "lucide-react";
-
-interface Product {
-  id: number;
-  title: string;
-  media: {
-    imageUrl: string;
-    altText: string;
-  };
-  price: number;
-  originalPrice: number;
-  discount: number;
-  rating: number;
-  category: string;
-  productLink: string;
-  description: string;
-}
-
-interface CategoryClientProps {
-  products: Product[];
-  category: string;
-  totalProducts: number;
-  mediaBreaker: any;
-  sidebarData: {
-    hotdeals: any[];
-    categories: any[];
-    brands: any[];
-    colors: any[];
-  };
-  sidebarConfig?: {
-    showCategories?: boolean;
-    showColors?: boolean;
-    showPriceRange?: boolean;
-    showBrands?: boolean;
-    showHotDeals?: boolean;
-    defaultExpanded?: string[];
-  };
-}
+import { X } from "lucide-react";
+import { CategoryClientProps } from "./CategoryClient.types";
 
 export default function CategoryClient({ 
   products, 
@@ -126,7 +89,7 @@ export default function CategoryClient({
             className="absolute inset-0 bg-black bg-opacity-50"
             onClick={closeMobileFilter}
           />
-          
+
           {/* Filter Panel */}
           <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -138,7 +101,7 @@ export default function CategoryClient({
                 <X className="w-5 h-5" />
               </button>
             </div>
-            
+
             <div className="h-full overflow-y-auto">
               <Sidebar
                 hotDeals={memoizedSidebarData.hotdeals}

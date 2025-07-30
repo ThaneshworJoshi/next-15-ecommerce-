@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { SidebarItemProps, SidebarProps, FilterState } from "./SideBar.type";
 import { PriceRangeSlider } from "../price-range-slider/PriceRangeSlider.component";
