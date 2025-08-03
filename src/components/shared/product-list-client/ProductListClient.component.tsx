@@ -28,6 +28,7 @@ interface ProductListClientProps {
   onFiltersChange?: (filters: FilterState) => void;
   onFilterClick?: () => void;
   activeFiltersCount?: number;
+  onAddToCart?: (product: Product) => void;
 }
 
 export default function ProductListClient({ 
@@ -36,7 +37,8 @@ export default function ProductListClient({
   totalProducts, 
   onFiltersChange,
   onFilterClick,
-  activeFiltersCount = 0
+  activeFiltersCount = 0,
+  onAddToCart
 }: ProductListClientProps) {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -134,7 +136,15 @@ export default function ProductListClient({
         {currentProducts && currentProducts.length > 0 ? (
           currentProducts.map((product) => (
             <div key={product.id} className="mb-4 border-spacing-1">
-              <ProductCard {...product} category={category} variant="horizontal" />
+              <ProductCard 
+                {...product} 
+                category={category} 
+                variant="horizontal"
+                events={{
+                  onAddToCart: () => onAddToCart?.(product),
+                  onAddToWishlist: () => console.log('Add to wishlist:', product)
+                }}
+              />
             </div>
           ))
         ) : (

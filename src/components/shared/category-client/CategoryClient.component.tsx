@@ -7,6 +7,7 @@ import ProductListClient from "@/components/shared/product-list-client";
 import { FilterState } from "@/components/shared/sidebar/SideBar.type";
 import { X } from "lucide-react";
 import { CategoryClientProps } from "./CategoryClient.types";
+import { AddToCartModal } from "@/components/shared/add-to-cart-modal";
 
 export default function CategoryClient({ 
   products, 
@@ -24,6 +25,10 @@ export default function CategoryClient({
   });
 
   const [a, setIsMobileFilterOpen] = useState(false);
+  
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   const handleFiltersChange = useCallback((filters: FilterState) => {
     setActiveFilters(filters);
@@ -36,6 +41,20 @@ export default function CategoryClient({
 
   const closeMobileFilter = useCallback(() => {
     setIsMobileFilterOpen(false);
+  }, []);
+
+  // Handle add to cart
+  const handleAddToCart = useCallback((product: any) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+    // Here you would typically add the product to cart via API
+    console.log('Adding to cart:', product);
+  }, []);
+
+  // Handle continue shopping
+  const handleContinueShopping = useCallback(() => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
   }, []);
 
   // Memoize sidebar data to prevent unnecessary re-renders
@@ -78,6 +97,7 @@ export default function CategoryClient({
           onFiltersChange={handleFiltersChange}
           onFilterClick={toggleMobileFilter}
           activeFiltersCount={activeFilters.colors.length + activeFilters.brands.length + activeFilters.categories.length}
+          onAddToCart={handleAddToCart}
         />
       </div>
 
@@ -121,6 +141,14 @@ export default function CategoryClient({
           </div>
         </div>
       )}
+
+      {/* Add to Cart Modal */}
+      <AddToCartModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        product={selectedProduct}
+        onContinueShopping={handleContinueShopping}
+      />
     </div>
   );
 } 
