@@ -1,66 +1,147 @@
 "use client";
 
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
 import { ContactFormProps } from "./ContactForm.type";
 import { FC } from "react";
+import { contactFormSchema, ContactFormData } from "@/schemas";
 
-const ContactForm: FC<ContactFormProps> = ({  }) => {
-  return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden">
-        {/* Left Side */}
-        <div className="bg-sky-400 w-full lg:w-1/2 flex flex-col items-center justify-center p-8 text-white relative">
-          <img
-            src="https://i.imgur.com/NnIwW0k.png"
-            alt="Phone Girl"
-            className="w-64 mb-4"
-          />
-          <h2 className="text-2xl font-semibold text-center mb-4">get in touch</h2>
-          <div className="text-sm text-center space-y-1">
-            <p>
-              <span className="bg-yellow-300 text-black px-1 font-bold">contact</span>
-              <span className="ml-1">@e-comm.ng</span>
-            </p>
-            <p>+234 4556 6666 34</p>
-            <p>20 Prince Hakeem Lekki, Phase 1, Lagos.</p>
-          </div>
+const ContactForm: FC<ContactFormProps> = ({ }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      console.log("Form data:", data);
+      
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        reset();
+      }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      console.error("Error submitting form:", error);
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="text-center py-8">
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
         </div>
-
-        {/* Right Side Form */}
-        <div className="w-full lg:w-1/2 p-8">
-          <form className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium mb-1">Fullname</label>
-              <Input placeholder="James Doe" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <Input type="email" placeholder="jamesdoe@gmail.com" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">Message</label>
-              <Textarea placeholder="Type your message..." rows={5} />
-            </div>
-
-            <Button type="submit">Submit</Button>
-          </form>
-        </div>
-      </Card>
-
-      {/* Search Input */}
-      <div className="mt-10 w-full max-w-xl flex">
-        <Input
-          placeholder="Search query..."
-          className="rounded-r-none border-r-0"
-        />
-        <Button className="rounded-l-none">Search</Button>
+        <h3 className="text-xl font-semibold text-green-600 mb-2">Message Sent!</h3>
+        <p className="text-gray-600">Thank you for contacting us. We'll get back to you soon.</p>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-700">Full Name *</label>
+          <Input
+            {...register("fullName")}
+            placeholder="Enter your full name"
+            className={`w-full ${errors.fullName ? "border-red-500" : ""}`}
+          />
+          {errors.fullName && (
+            <p className="text-red-500 text-xs mt-1">{errors.fullName.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-700">Email Address *</label>
+          <Input
+            {...register("email")}
+            type="email"
+            placeholder="Enter your email"
+            className={`w-full ${errors.email ? "border-red-500" : ""}`}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2 text-gray-700">Subject *</label>
+        <Input
+          {...register("subject")}
+          placeholder="What is this about?"
+          className={`w-full ${errors.subject ? "border-red-500" : ""}`}
+        />
+        {errors.subject && (
+          <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>
+        )}
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2 text-gray-700">Message *</label>
+        <Textarea
+          {...register("message")}
+          placeholder="Tell us more about your inquiry..."
+          rows={5}
+          className={`w-full resize-none ${errors.message ? "border-red-500" : ""}`}
+        />
+        {errors.message && (
+          <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>
+        )}
+      </div>
+
+      <Button 
+        type="submit" 
+        className="w-full" 
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <div className="flex items-center">
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Sending...
+          </div>
+        ) : (
+          "Send Message"
+        )}
+      </Button>
+
+      <p className="text-xs text-gray-500 text-center">
+        By submitting this form, you agree to our privacy policy and terms of service.
+      </p>
+    </form>
   );
 }
 
