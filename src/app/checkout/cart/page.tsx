@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getCart } from "@/lib/cartApi";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
+import { CartSkeleton } from "@/components/skeleton";
 
 export default function CartPage() {
   const [cart, setCart] = useState<any>(null);
@@ -98,7 +99,7 @@ export default function CartPage() {
     }
   };
 
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (loading) return <CartSkeleton />;
   if (error || !cart) return <p className="text-center text-red-500">{error || "Error loading data."}</p>;
 
   const subtotal = cart.products.reduce(
