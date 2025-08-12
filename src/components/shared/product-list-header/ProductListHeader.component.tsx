@@ -3,11 +3,17 @@
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ProductListHeaderProps } from "./ProductListHeader.type";
-import { AlignJustify } from "lucide-react";
+import { AlignJustify, Filter } from "lucide-react";
 import { BsGrid3X3GapFill } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 
-export const ProductListHeader = ({ totalItems, onSortChange, onItemsPerPageChange }: ProductListHeaderProps) => {
+export const ProductListHeader = ({ 
+  totalItems, 
+  onSortChange, 
+  onItemsPerPageChange, 
+  onFilterClick,
+  activeFiltersCount = 0
+}: ProductListHeaderProps) => {
   const [sortBy, setSortBy] = useState("popularity");
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid"); // 🔹 Tracks Active View
@@ -18,6 +24,25 @@ export const ProductListHeader = ({ totalItems, onSortChange, onItemsPerPageChan
       <div className="flex gap-10 items-center">
         {/* 🏷️ Total Items */}
         <p className="text-gray-600">{totalItems} Items</p>
+        
+        {/* Mobile Filter Button */}
+        <div className="md:hidden">
+          <Button
+            onClick={onFilterClick}
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-2"
+          >
+            <Filter className="w-4 h-4" />
+            Filters
+            {activeFiltersCount > 0 && (
+              <span className="bg-blue-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+                {activeFiltersCount}
+              </span>
+            )}
+          </Button>
+        </div>
+        
         <div className="flex flex-col md:flex-row gap-x-6 gap-y-3">
           {/* 🔽 Sort By Dropdown */}
           <div className="flex items-center justify-between w-full max-w-[190px] space-x-4">

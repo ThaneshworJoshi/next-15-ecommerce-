@@ -4,30 +4,32 @@ import { NextResponse } from "next/server";
 const sidebarData = {
   categories: [
     { id: 1, name: "Hot Deals", slug: "hot-deals" },
-    { id: 2, name: "Electronics", slug: "electronics" },
-    { id: 3, name: "Fashion", slug: "fashion" },
-    { id: 4, name: "Home & Kitchen", slug: "home-kitchen" },
+    { id: 2, name: "Collars", slug: "collars" },
+    { id: 3, name: "Toys", slug: "toys" },
+    { id: 4, name: "Beds & Mats", slug: "beds-mats" },
+    { id: 5, name: "Accessories", slug: "accessories" },
   ],
   brands: [
-    { id: 1, name: "Nike", dealCounts: 2, slug: "nike-deals" },
-    { id: 2, name: "Apple", dealCounts: 44, slug: "apple-deals"},
-    { id: 3, name: "Samsung", dealCounts: 5, slug: "samsung-deals"},
-    { id: 4, name: "Adisas", dealCounts: 89, slug: "adisas-deals"},
+    { id: 1, name: "PawPlanet", dealCounts: 12, slug: "pawplanet-deals" },
+    { id: 2, name: "WhiskerWorld", dealCounts: 8, slug: "whiskerworld-deals" },
+    { id: 3, name: "FurEver", dealCounts: 5, slug: "furever-deals" },
+    { id: 4, name: "TailTrend", dealCounts: 16, slug: "tailtrend-deals" },
   ],
   colors: [
-    { id: 1, name: "Red", hex: "#FF0000" },
-    { id: 2, name: "Blue", hex: "#0000FF" },
+    { id: 1, name: "Pink", hex: "#FFC0CB" },
+    { id: 2, name: "Blue", hex: "#007BFF" },
     { id: 3, name: "Black", hex: "#000000" },
     { id: 4, name: "White", hex: "#FFFFFF" },
+    { id: 5, name: "Yellow", hex: "#FFF600" }
   ],
   hotdeals: [
-    { id: 1, name: "Nike", dealCounts: 2, slug: "nike-deals" },
-    { id: 2, name: "Apple", dealCounts: 44, slug: "apple-deals" },
-    { id: 3, name: "Samsung", dealCounts: 5, slug: "samsung-deals" },
-    { id: 4, name: "Adisas", dealCounts: 89, slug: "adisas-deals" },
-    { id: 5, name: "Vans", dealCounts: 22, slug: "vans-deals" },
-    { id: 6, name: "All Stars", dealCounts: 10, slug: "all-star-deals" },
-    { id: 7, name: "Sony", dealCounts: 10, slug: "sony-deals" },
+    { id: 1, name: "PawPlanet", dealCounts: 12, slug: "pawplanet-deals" },
+    { id: 2, name: "WhiskerWorld", dealCounts: 8, slug: "whiskerworld-deals" },
+    { id: 3, name: "FurEver", dealCounts: 5, slug: "furever-deals" },
+    { id: 4, name: "TailTrend", dealCounts: 16, slug: "tailtrend-deals" },
+    { id: 5, name: "MeowCo", dealCounts: 7, slug: "meowco-deals" },
+    { id: 6, name: "Pawssentials", dealCounts: 10, slug: "pawssentials-deals" },
+    { id: 7, name: "CutePaws", dealCounts: 6, slug: "cutepaws-deals" }
   ]
 };
 

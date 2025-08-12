@@ -57,6 +57,9 @@ export const Header: React.FC<HeaderProps> = ({
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  const onOpenSearchModal = () => {
+    setIsOpen(true);
+  };
   return (
     <header className="w-full bg-white">
       {/* Top Seciton  */}
@@ -142,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="mr-8 text-neutral-secondary ">Items</span>
               <span className="text-neutral-muted">{cartTotal}</span>
             </div>
-            <Button onClick={() => setIsOpen(true)} variant="ghost" size="lg" className="w-full h-full px-0">
+            <Button onClick={onOpenSearchModal} variant="ghost" size="lg" className="w-full h-full px-0">
               <IoSearch className="scale-150" />
             </Button>
 
@@ -188,8 +191,8 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="py-8">
         <div className="container flex items-center justify-between px-4 mx-auto">
           <Link href={'/'} className="flex items-center gap-2 cursor-pointer">
-            <Image src="/logo.svg" alt="E-com logo" width={44} height={44} />
-            <span className="text-lg font-bold text-neutral-dark">E-Comm</span>
+            <Image src="/logo1.png" alt="E-com logo" width={44} height={44} />
+            <span className="text-lg font-bold text-neutral-dark">Paw Planet</span>
           </Link>
 
           {/* Navigation */}

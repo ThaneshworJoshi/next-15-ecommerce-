@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Heart } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { getProductByName } from "@/lib/productApi";
 
 interface PageProps {
     params: Promise<{ category: string; productName: string }>;
@@ -55,12 +56,8 @@ export default function ProductDetailPage({ params }: PageProps) {
             if (!productName) return;
 
             try {
-                const response = await fetch(`/api/products/${encodeURIComponent(productName)}`);
-                if (!response.ok) throw new Error("Failed to fetch product data");
-
-                const result = await response.json();
+                const result = await getProductByName(productName);
                 setProduct(result);
-
                 if (result?.media?.images?.length > 0) {
                     setActiveImage(result.media.images[0]);
                 }
@@ -105,8 +102,15 @@ export default function ProductDetailPage({ params }: PageProps) {
                     {/* Image Gallery */}
                     <div className="flex-shrink-0">
                         {activeImage && (
-                            <div className="rounded-lg overflow-hidden mb-8 lg:mb-36 h-[270px] w-full max-w-[370px] relative mx-auto lg:mx-0">
-                                <Image src={activeImage} alt={product?.name} fill className="object-cover" />
+                            <div className="rounded-lg overflow-hidden mb-8 lg:mb-36 w-full relative mx-auto lg:mx-0 flex justify-center items-center">
+                                <Image 
+                                    src={activeImage} 
+                                    alt={product?.name} 
+                                    width={500} 
+                                    height={500} 
+                                    className="object-contain" 
+                                    priority
+                                />
                             </div>
                         )}
 

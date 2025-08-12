@@ -13,7 +13,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ title, media }) => {
           style={{ backgroundImage: `url('${media.imageUrl}')` }}
         >
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div className="absolute inset-0"></div>
 
           {/* Hero Content */}
           <div className="relative ml-5 sm:ml-30 md:ml-40 max-w-[170] sm:max-w-[380] md:max-w-[500px] z-20 tracking-wide">

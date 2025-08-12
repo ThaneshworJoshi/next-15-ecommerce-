@@ -3,57 +3,59 @@ import { NextResponse } from "next/server";
 // API Route for Product Data
 export async function GET() {
   const data = {
-    "id": "12345",
-    "name": "Nike Air Max 2024",
-    "category": "Shoes",
-    "rating": 4,
-    "reviews": 254,
-    "price": 149.99,
-    "originalPrice": 199.99,
-    "discountedPrice": 149.99,
-    "discountPercentage": 25,
-    "availability": "In Stock",
-    "colors": ["#006CFF", "#FC3E39", "#171717", "#FFF600"],
-    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
-    "productInformation": {
-      "brand": "Nike",
-      "material": "Mesh & Synthetic Leather",
-      "gender": "Unisex",
-      "weight": "350g",
-      "description": "The Nike Air Max 2024 is designed for ultimate comfort and style. Featuring a breathable mesh upper, cushioned Air Max sole, and premium durability.",
-      "features": [
-        "Breathable mesh upper for better airflow",
-        "Lightweight and flexible sole",
-        "Enhanced grip and durability",
-        "Modern design with bold color options"
+    id: "ac001",
+    name: "Soft Pink Cat Collar with Bell",
+    category: "Collars",
+    rating: 5,
+    reviews: 148,
+    price: 12.99,
+    originalPrice: 17.99,
+    discountedPrice: 12.99,
+    discountPercentage: 28,
+    availability: "In Stock",
+    colors: ["#FFC0CB", "#FFD1DC", "#FFB6C1", "#FFFFFF"],
+    sizes: ["XS", "S", "M"],
+    productInformation: {
+      brand: "PawPlanet",
+      material: "Faux Leather & Metal Bell",
+      gender: "Unisex (Pets)",
+      weight: "50g",
+      description:
+        "This soft pink cat collar is designed with both elegance and comfort in mind. It features a silver bell and a gold buckle, perfect for your stylish feline friend.",
+      features: [
+        "Soft faux leather for maximum comfort",
+        "Breakaway buckle for pet safety",
+        "Includes a silver bell for easy tracking",
+        "Adjustable fit for growing kittens"
       ]
     },
-    "relatedProducts": [
+    relatedProducts: [
       {
-        "id": "12346",
-        "name": "Nike Revolution 6",
-        "price": 129.99,
-        "rating": 4.5,
-        "image": "/images/nike-revolution-6.jpg"
+        id: "ac002",
+        name: "Adjustable Blue Nylon Cat Collar",
+        price: 10.49,
+        rating: 4.5,
+        image: "/assets/accessories/cat-collar-blue.jpg"
       },
       {
-        "id": "12347",
-        "name": "Nike ZoomX Vaporfly",
-        "price": 199.99,
-        "rating": 4.8,
-        "image": "/images/nike-zoomx.jpg"
+        id: "ac003",
+        name: "Floral Print Breakaway Cat Collar",
+        price: 13.25,
+        rating: 5,
+        image: "/assets/accessories/cat-collar-floral.jpg"
       }
     ],
-    "media": {
-      "images": [
-        "/assets/sneakers1.png",
-        "/assets/sneakers2.png",
-        "/assets/sneakers3.png",
-        "/assets/sneakers4.png",
+    media: {
+      images: [
+        "/assets/accessories/cat-collar-pink.jpg",
+        "/assets/accessories/cat-collar-pink-side.jpg",
+        "/assets/accessories/cat-collar-pink-closeup.jpg",
+        "/assets/accessories/cat-collar-pink-packaging.jpg"
       ],
-      "video": "/videos/nike-air-max-ad.mp4"
+      video: "/videos/pink-cat-collar-showcase.mp4"
     }
-  }
+  };
+
 
   return NextResponse.json(data);
 }
