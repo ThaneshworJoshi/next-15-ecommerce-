@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ProductCategoryTabs } from "@/components";
+import { BestSellerSkeleton } from "../skeleton";
 
 export const BestSeller = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,10 +24,10 @@ export const BestSeller = () => {
   }, []);
 
   if (error) return <p className="text-center text-red-500">Failed to load data.</p>;
-  if (!data) return <p className="text-center">Loading products...</p>;
+  if (!data) return <BestSellerSkeleton />;
 
   return (
-    <>      
+    <>
       <div className="my-10">
         <ProductCategoryTabs categories={data.categories} products={data.productsData} /> 
       </div>
