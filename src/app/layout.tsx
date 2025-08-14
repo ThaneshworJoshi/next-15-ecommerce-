@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { Header } from "@/components/layout";
 import { Footer } from "@/components";
+import { ReactQueryProvider } from '@/components/providers/ReactQueryProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,16 +72,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header
-          navItems={navItems}
-          cartItemCount={2}
-          cartTotal="$0.00"
-          categoryData={categoryData}
-        />
-        {children}
+        <ReactQueryProvider>
+          <Header
+            navItems={navItems}
+            cartItemCount={2}
+            cartTotal="$0.00"
+            categoryData={categoryData}
+          />
+          {children}
 
-        {/* Footer */}
-        <Footer {...footerData} />
+          {/* Footer */}
+          <Footer {...footerData} />
+        </ReactQueryProvider>
       </body>
     </html>
   );
