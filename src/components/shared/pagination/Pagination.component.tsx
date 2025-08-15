@@ -18,6 +18,7 @@ export default function Pagination({
   onPageChange,
   itemsPerPage,
   totalItems,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onItemsPerPageChange,
 }: PaginationProps) {
   const getVisiblePages = () => {

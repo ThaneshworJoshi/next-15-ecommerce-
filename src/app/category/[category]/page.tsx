@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/breadcrumb";
 import CategoryClient from "@/components/shared/category-client";
 import { getCategoryData, getSidebarData } from "@/lib/api";
-import { CloudCog } from "lucide-react";
 
 interface PageProps {
     params: Promise<{ category: string }>;
@@ -51,7 +50,6 @@ export default async function ProductListingPage({ params }: PageProps) {
             </div>
            
             <CategoryClient 
-                products={categoryData.productsData || []}
                 category={category}
                 totalProducts={totalProducts}
                 mediaBreaker={categoryData.mediaBreaker}

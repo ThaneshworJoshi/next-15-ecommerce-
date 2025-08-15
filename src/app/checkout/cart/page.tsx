@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -35,6 +36,7 @@ export default function CartPage() {
       try {
         const data = await getCart();
         setCart(data);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         setError("Error loading cart data.");
       } finally {

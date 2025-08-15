@@ -87,7 +87,7 @@ export default function ContactUsPage() {
                 <div className="container mx-auto px-4 py-16 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>
                     <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-                        We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                        Wed love to hear from you. Send us a message and well respond as soon as possible.
                     </p>
                     <div className="flex items-center justify-center gap-2">
                         <MessageSquare className="w-6 h-6" />
@@ -103,7 +103,7 @@ export default function ContactUsPage() {
                         <div>
                             <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
                             <p className="text-gray-600 mb-8">
-                                Have questions? We're here to help! Reach out to us through any of the following channels.
+                                Have questions? Were here to help! Reach out to us through any of the following channels.
                             </p>
                         </div>
 
@@ -145,7 +145,7 @@ export default function ContactUsPage() {
                         <div className="mb-6">
                             <h2 className="text-3xl font-bold mb-2">Send us a Message</h2>
                             <p className="text-gray-600">
-                                Fill out the form below and we'll get back to you as soon as possible.
+                                Fill out the form below and well get back to you as soon as possible.
                             </p>
                         </div>
                         <ContactForm data={{

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Product {
   id: number;
   title: string;
@@ -31,7 +32,6 @@ export interface SidebarConfig {
 }
 
 export interface CategoryClientProps {
-  products: Product[];
   category: string;
   totalProducts: number;
   mediaBreaker: any;

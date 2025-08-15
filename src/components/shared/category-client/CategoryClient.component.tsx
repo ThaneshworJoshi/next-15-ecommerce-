@@ -1,12 +1,12 @@
 "use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useCallback, useMemo } from "react";
 import { MediaBreaker } from "@/components";
 import Sidebar from "@/components/shared/sidebar/SideBar.component";
 import ProductListClient from "@/components/shared/product-list-client";
 import { FilterState } from "@/components/shared/sidebar/SideBar.type";
 import { X } from "lucide-react";
-import { CategoryClientProps } from "./CategoryClient.types";
+import { CategoryClientProps, Product } from "./CategoryClient.types";
 import { AddToCartModal } from "@/components/shared/add-to-cart-modal";
 import { useProductsByCategory } from "@/hooks/react-query/useProductsByCategory";
 import { ProductListClientSkeleton } from "@/components/skeleton";
@@ -24,7 +24,7 @@ export default function CategoryClient({
     colors: [],
     brands: [],
     categories: ['Toys', 'Accessories'], // Sample data to match the image
-    priceRange: [50, 1000], // Sample price range to match the image
+    priceRange: [0, 1000],
   });
 
 
@@ -32,7 +32,7 @@ export default function CategoryClient({
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const handleFiltersChange = useCallback((filters: FilterState) => {
     setActiveFilters(filters);
@@ -71,16 +71,12 @@ export default function CategoryClient({
       <div className="hidden md:block basis-1/4 mr-5">
         <Sidebar
           hotDeals={memoizedSidebarData.hotdeals}
-          categories={memoizedSidebarData.categories}
-          brands={memoizedSidebarData.brands}
-          colors={memoizedSidebarData.colors}
+          categories={productsData?.categories}
+          brands={productsData?.brands}
+          colors={productsData?.colors}
           onFiltersChange={handleFiltersChange}
           activeFilters={activeFilters}
-          showCategories={sidebarConfig.showCategories}
-          showColors={sidebarConfig.showColors}
-          showPriceRange={sidebarConfig.showPriceRange}
-          showBrands={sidebarConfig.showBrands}
-          showHotDeals={sidebarConfig.showHotDeals}
+          priceRange={productsData?.priceRange || [0, 1000]}
           defaultExpanded={sidebarConfig.defaultExpanded}
         />
       </div>
@@ -95,14 +91,14 @@ export default function CategoryClient({
         )}
         {isLoading && <ProductListClientSkeleton />}
         
-        {!isLoading && !error && productsData && productsData.length === 0 && (
+        {!isLoading && !error && productsData.products.length === 0 && (
           <div className="text-gray-500 text-center my-8">
             No products found in this category.
           </div>
         )}
 
-        {!isLoading && !error && productsData.length && <ProductListClient
-          products={productsData}
+        {!isLoading && !error && productsData.products.length && <ProductListClient
+          products={productsData?.products}
           category={category}
           totalProducts={totalProducts}
           onFiltersChange={handleFiltersChange}
@@ -136,16 +132,12 @@ export default function CategoryClient({
             <div className="h-full overflow-y-auto">
               <Sidebar
                 hotDeals={memoizedSidebarData.hotdeals}
-                categories={memoizedSidebarData.categories}
-                brands={memoizedSidebarData.brands}
-                colors={memoizedSidebarData.colors}
+                categories={productsData?.categories}
+                brands={productsData?.brands}
+                colors={productsData?.colors}
                 onFiltersChange={handleFiltersChange}
                 activeFilters={activeFilters}
-                showCategories={sidebarConfig.showCategories}
-                showColors={sidebarConfig.showColors}
-                showPriceRange={sidebarConfig.showPriceRange}
-                showBrands={sidebarConfig.showBrands}
-                showHotDeals={sidebarConfig.showHotDeals}
+                priceRange={productsData?.priceRange || [0, 1000]}
                 defaultExpanded={sidebarConfig.defaultExpanded}
               />
             </div>

@@ -4,8 +4,8 @@ import { PriceRangeSliderProps } from "./PriceRangeSlider.type";
 export const PriceRangeSlider = ({
   range,
   setRange,
-  min = 0,
-  max = 1000,
+  min,
+  max,
   step = 10,
 }: PriceRangeSliderProps) => {
   const handleRangeChange = (value: number[]) => {
@@ -16,7 +16,6 @@ export const PriceRangeSlider = ({
 
   return (
     <div className="w-full max-w-md mx-auto py-6 bg-neutral-background p-5 rounded-lg">
-      <h3 className="text-lg font-semibold uppercase mb-6">Prices</h3>
 
       <div className="flex justify-between text-sm text-neutral-dark mb-2">
         <span>Range:</span>
