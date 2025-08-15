@@ -8,15 +8,18 @@ import { FilterState } from "@/components/shared/sidebar/SideBar.type";
 import { X } from "lucide-react";
 import { CategoryClientProps } from "./CategoryClient.types";
 import { AddToCartModal } from "@/components/shared/add-to-cart-modal";
+import { useProductsByCategory } from "@/hooks/react-query/useProductsByCategory";
+import { ProductListClientSkeleton } from "@/components/skeleton";
 
-export default function CategoryClient({ 
-  products, 
-  category, 
-  totalProducts, 
-  mediaBreaker, 
+export default function CategoryClient({
+  category,
+  totalProducts,
+  mediaBreaker,
   sidebarData,
   sidebarConfig = {}
 }: CategoryClientProps) {
+  const { data: productsData, error, isLoading } = useProductsByCategory(category)
+
   const [activeFilters, setActiveFilters] = useState<FilterState>({
     colors: [],
     brands: [],
@@ -24,8 +27,9 @@ export default function CategoryClient({
     priceRange: [50, 1000], // Sample price range to match the image
   });
 
+
   const [a, setIsMobileFilterOpen] = useState(false);
-  
+
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
@@ -86,26 +90,33 @@ export default function CategoryClient({
         {mediaBreaker && (
           <MediaBreaker
             {...mediaBreaker}
-            events={{ onClick: () => {} }}
+            events={{ onClick: () => { } }}
           />
         )}
+        {isLoading && <ProductListClientSkeleton />}
         
-        <ProductListClient 
-          products={products}
+        {!isLoading && !error && productsData && productsData.length === 0 && (
+          <div className="text-gray-500 text-center my-8">
+            No products found in this category.
+          </div>
+        )}
+
+        {!isLoading && !error && productsData.length && <ProductListClient
+          products={productsData}
           category={category}
           totalProducts={totalProducts}
           onFiltersChange={handleFiltersChange}
           onFilterClick={toggleMobileFilter}
           activeFiltersCount={activeFilters.colors.length + activeFilters.brands.length + activeFilters.categories.length}
           onAddToCart={handleAddToCart}
-        />
+        />}
       </div>
 
       {/* Mobile Filter Popup */}
       {a && (
         <div className="fixed inset-0 z-50 md:hidden">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black bg-opacity-50"
             onClick={closeMobileFilter}
           />
