@@ -1,4 +1,4 @@
-export async function getCart() {
+export async function fetchCart() {
   const res = await fetch("/api/cart", { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch cart data");
   return res.json();
