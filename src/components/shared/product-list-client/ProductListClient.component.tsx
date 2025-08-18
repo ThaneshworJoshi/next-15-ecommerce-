@@ -84,7 +84,7 @@ export default function ProductListClient({
       return true;
     });
   }, [products, activeFilters]);
-
+  console.log(totalProducts)
   // Calculate pagination for filtered products
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   
@@ -112,7 +112,7 @@ export default function ProductListClient({
     // Scroll to top when changing pages
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleFiltersChange = useCallback((filters: FilterState) => {
     setActiveFilters(filters);
     setCurrentPage(1); // Reset to first page when filtering

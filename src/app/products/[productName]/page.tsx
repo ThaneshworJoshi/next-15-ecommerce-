@@ -24,6 +24,9 @@ import {
 import { Heart } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getProductByName } from "@/lib/productApi";
+import { useProductDetail } from "@/hooks/react-query/useProductDetail";
+import ProductPageSkeleton from "@/components/skeleton/ProductPageSkeleton.component";
+import ReviewModal from "@/components/shared/review-modal/ReviewModal.component";
 
 interface PageProps {
     params: Promise<{ category: string; productName: string }>;
@@ -35,8 +38,12 @@ export default function ProductDetailPage({ params }: PageProps) {
     const router = useRouter();
 
     const category = searchParams.get('category');
-    
-    const [product, setProduct] = useState<any>(null);
+
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [reviewText, setReviewText] = useState<string>("");
+
     const [error, setError] = useState<string | null>(null);
     const [activeImage, setActiveImage] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -51,28 +58,37 @@ export default function ProductDetailPage({ params }: PageProps) {
         router.push('/checkout/cart')
     }
 
+    const { data, isLoading} = useProductDetail(productName);
+
     useEffect(() => {
-        async function fetchProductData() {
-            if (!productName) return;
-
-            try {
-                const result = await getProductByName(productName);
-                setProduct(result);
-                if (result?.media?.images?.length > 0) {
-                    setActiveImage(result.media.images[0]);
-                }
-            } catch (error) {
-                console.error("Error fetching products:", error);
-                setError("Failed to fetch product details.");
-            }
+        if (data?.product  && data?.product.media.images.length > 0) {
+          setActiveImage(data?.product.media.images[0]);
         }
+    }, [data?.product]);
 
-        fetchProductData();
-    }, [productName]);
-
-    if (!product) {
-        return <div>Loading....</div>;
+    if(isLoading){
+        return <ProductPageSkeleton />;
     }
+    
+    if (!data?.product) {
+        return <div>No Product Information</div>;
+    }
+
+    // Review submit handler
+    const handleReviewSubmit = async ({ rating, text }: { rating: number; text: string }) => {
+        // TODO: call real api
+        // const res = await fetch(`/api/products/${data?.product?.id}/reviews`, {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ rating, text }),
+        // });
+        // if (!res.ok) throw new Error("Failed to submit review");
+
+        setIsReviewModalOpen(false);
+        setIsSubmitting(false);
+        setSubmitError(null);
+        setReviewText("");
+    };
 
     return (
         <div className="mx-auto container">
@@ -105,7 +121,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                             <div className="rounded-lg overflow-hidden mb-8 lg:mb-36 w-full relative mx-auto lg:mx-0 flex justify-center items-center">
                                 <Image 
                                     src={activeImage} 
-                                    alt={product?.name} 
+                                    alt={data?.product?.name} 
                                     width={500} 
                                     height={500} 
                                     className="object-contain" 
@@ -115,7 +131,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                         )}
 
                         <div className="flex flex-wrap justify-center lg:justify-start mt-4 gap-4">
-                            {product?.media?.images?.map((image: string, index: number) => (
+                            {data?.product?.media?.images?.map((image: string, index: number) => (
                                 <button
                                     key={index}
                                     onClick={() => setActiveImage(image)}
@@ -131,32 +147,34 @@ export default function ProductDetailPage({ params }: PageProps) {
 
                     {/* Product Info */}
                     <div className="w-full mx-4 md:mx-0 flex flex-col justify-center">
-                        <h1 className="text-2xl md:text-3xl font-medium mb-6">{product?.name}</h1>
+                        <h1 className="text-2xl md:text-3xl font-medium mb-6">{data?.product?.name}</h1>
 
                         <div className="flex items-center mb-2">
                             {[...Array(5)].map((_, index) => (
                                 <MdStar
                                     key={index}
-                                    className={`text-md ${index < product?.rating ? "text-yellow-400" : "text-gray-300"}`}
+                                    className={`text-md ${index < data?.product?.rating ? "text-yellow-400" : "text-gray-300"}`}
                                 />
                             ))}
                             <span className="text-base ml-3 mr-3 text-neutral-muted">0 reviews</span>
-                            <Button variant="link" size="sm" className="text-base text-primary-light">Submit a review</Button>
+                            <Button variant="link" size="sm" className="text-base text-primary-light" onClick={() => setIsReviewModalOpen(true)}>
+                                Submit a review
+                            </Button>
                         </div>
 
                         <hr className="h-[2px] bg-neutral-background border-0 dark:bg-gray-700 mb-4" />
 
                         <div className="flex flex-wrap items-center gap-2 mb-7">
-                            <span className="text-primary text-xl font-bold">${product.discountedPrice}</span>
-                            <span className="line-through text-sm text-neutral-muted">${product.originalPrice}</span>
-                            <span className="text-sm font-bold text-primary-red">{product.discountPercentage}% off</span>
+                            <span className="text-primary text-xl font-bold">${data?.product.discountedPrice}</span>
+                            <span className="line-through text-sm text-neutral-muted">${data?.product.originalPrice}</span>
+                            <span className="text-sm font-bold text-primary-red">{data?.product.discountPercentage}% off</span>
                         </div>
 
                         <div className="grid grid-cols-[125px_auto] text-sm mb-4 gap-4">
                             <div>Availability:</div>
-                            <div>{product.availability}</div>
+                            <div>{data?.product.availability}</div>
                             <div>Category:</div>
-                            <div>{product.category}</div>
+                            <div>{data?.product.category}</div>
                             <div>Free Shipping</div>
                         </div>
 
@@ -166,7 +184,7 @@ export default function ProductDetailPage({ params }: PageProps) {
                         <div className="grid grid-cols-[125px_auto] items-center gap-y-6 mb-5">
                             <span className="text-base">Select Color:</span>
                             <div className="flex flex-wrap gap-4">
-                                {product?.colors.map((color: string) => (
+                                {data?.product?.colors.map((color: string) => (
                                     <button
                                         key={color}
                                         onClick={() => setSelectedColor(color)}
@@ -187,11 +205,11 @@ export default function ProductDetailPage({ params }: PageProps) {
                             <div className="w-full max-w-[120px]">
                                 <Select>
                                     <SelectTrigger className="w-full">
-                                        <SelectValue placeholder={product?.sizes[0]} />
+                                        <SelectValue placeholder={data?.product?.sizes[0]} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
-                                            {product?.sizes?.map((size: string) => (
+                                            {data?.product?.sizes?.map((size: string) => (
                                                 <SelectItem key={size} value={size}>{size}</SelectItem>
                                             ))}
                                         </SelectGroup>
@@ -228,6 +246,13 @@ export default function ProductDetailPage({ params }: PageProps) {
                     <h2 className="text-sm font-bold text-neutral-400 mb-9">Best Seller</h2>
                 </div>
             </div>
+            <ReviewModal
+                isOpen={isReviewModalOpen}
+                onClose={() => setIsReviewModalOpen(false)}
+                onSubmit={handleReviewSubmit}
+                isSubmitting={isSubmitting}
+                error={error || ''}
+            />
         </div>
     );
 }

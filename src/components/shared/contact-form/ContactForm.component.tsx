@@ -61,7 +61,7 @@ const ContactForm: FC<ContactFormProps> = ({ }) => {
           </svg>
         </div>
         <h3 className="text-xl font-semibold text-green-600 mb-2">Message Sent!</h3>
-        <p className="text-gray-600">Thank you for contacting us. We'll get back to you soon.</p>
+        <p className="text-gray-600">Thank you for contacting us. We will get back to you soon.</p>
       </div>
     );
   }

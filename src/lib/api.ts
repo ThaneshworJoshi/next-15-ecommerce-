@@ -127,7 +127,7 @@ export async function getCategoryData(category: string) {
   }
   
   // Static category data (from your API route)
-  const allProducts: Record<string, any[]> = {
+  const allProducts: Record<string, unknown[]> = {
     toys: [
       {
         id: 1,
@@ -556,7 +556,7 @@ export async function getCategoryData(category: string) {
     ]
   };
 
-  const mediaBreakerConfig: Record<string, any> = {
+  const mediaBreakerConfig: Record<string, unknown> = {
     collars: {
       variant: "slim",
       media: {

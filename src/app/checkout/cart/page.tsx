@@ -1,15 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { getCart } from "@/lib/cartApi";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { CartSkeleton } from "@/components/skeleton";
+import { useCart } from "@/hooks/react-query/useCart";
 
 export default function CartPage() {
   const [cart, setCart] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [coupon, setCoupon] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
@@ -29,20 +31,7 @@ export default function CartPage() {
   const [infoErrors, setInfoErrors] = useState<any>({});
   const [infoSubmitted, setInfoSubmitted] = useState(false);
 
-  useEffect(() => {
-    async function fetchCart() {
-      setLoading(true);
-      try {
-        const data = await getCart();
-        setCart(data);
-      } catch (err) {
-        setError("Error loading cart data.");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchCart();
-  }, []);
+  const { data: cartData, isLoading } = useCart();
 
   const handleQuantity = (id: string, type: "inc" | "dec") => {
     if (!cart) return;
@@ -99,10 +88,11 @@ export default function CartPage() {
     }
   };
 
-  if (loading) return <CartSkeleton />;
-  if (error || !cart) return <p className="text-center text-red-500">{error || "Error loading data."}</p>;
+  if (isLoading) return <CartSkeleton />;
 
-  const subtotal = cart.products.reduce(
+  if (error || !cartData) return <p className="text-center text-red-500">{error || "Error loading data."}</p>;
+
+  const subtotal = cartData.products.reduce(
     (sum: number, item: any) => sum + item.unitPrice * item.quantity,
     0
   );
@@ -123,7 +113,7 @@ export default function CartPage() {
             </tr>
           </thead>
           <tbody>
-            {cart.products.map((item: any) => (
+            {cartData.products.map((item: any) => (
               <tr key={item.id} className="border-b text-sm">
                 <td className="flex items-center gap-6 py-9">
                   <button onClick={() => handleRemove(item.id)} className="rounded-full text-red-500 bg-red-100 font-bold px-2 py-1 mr-4">✕</button>
@@ -149,7 +139,7 @@ export default function CartPage() {
 
       {/* Card view for mobile */}
       <div className="grid grid-cols-1 gap-6 mb-10 md:hidden">
-        {cart.products.map((item: any) => (
+        {cartData.products.map((item: any) => (
           <div key={item.id} className="w-full border rounded-lg p-4 shadow-sm relative">
             <button onClick={() => handleRemove(item.id)} className="absolute top-2 right-2 rounded-full text-red-500 bg-red-100 font-bold px-2 py-1">
               ✕
