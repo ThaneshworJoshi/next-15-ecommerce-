@@ -26,6 +26,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { getProductByName } from "@/lib/productApi";
 import { useProductDetail } from "@/hooks/react-query/useProductDetail";
 import ProductPageSkeleton from "@/components/skeleton/ProductPageSkeleton.component";
+import ReviewModal from "@/components/shared/review-modal/ReviewModal.component";
 
 interface PageProps {
     params: Promise<{ category: string; productName: string }>;
@@ -37,7 +38,12 @@ export default function ProductDetailPage({ params }: PageProps) {
     const router = useRouter();
 
     const category = searchParams.get('category');
-    
+
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [reviewText, setReviewText] = useState<string>("");
+
     const [error, setError] = useState<string | null>(null);
     const [activeImage, setActiveImage] = useState<string | null>(null);
     const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -67,6 +73,22 @@ export default function ProductDetailPage({ params }: PageProps) {
     if (!data?.product) {
         return <div>No Product Information</div>;
     }
+
+    // Review submit handler
+    const handleReviewSubmit = async ({ rating, text }: { rating: number; text: string }) => {
+        // TODO: call real api
+        // const res = await fetch(`/api/products/${data?.product?.id}/reviews`, {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ rating, text }),
+        // });
+        // if (!res.ok) throw new Error("Failed to submit review");
+
+        setIsReviewModalOpen(false);
+        setIsSubmitting(false);
+        setSubmitError(null);
+        setReviewText("");
+    };
 
     return (
         <div className="mx-auto container">
@@ -135,7 +157,9 @@ export default function ProductDetailPage({ params }: PageProps) {
                                 />
                             ))}
                             <span className="text-base ml-3 mr-3 text-neutral-muted">0 reviews</span>
-                            <Button variant="link" size="sm" className="text-base text-primary-light">Submit a review</Button>
+                            <Button variant="link" size="sm" className="text-base text-primary-light" onClick={() => setIsReviewModalOpen(true)}>
+                                Submit a review
+                            </Button>
                         </div>
 
                         <hr className="h-[2px] bg-neutral-background border-0 dark:bg-gray-700 mb-4" />
@@ -222,6 +246,13 @@ export default function ProductDetailPage({ params }: PageProps) {
                     <h2 className="text-sm font-bold text-neutral-400 mb-9">Best Seller</h2>
                 </div>
             </div>
+            <ReviewModal
+                isOpen={isReviewModalOpen}
+                onClose={() => setIsReviewModalOpen(false)}
+                onSubmit={handleReviewSubmit}
+                isSubmitting={isSubmitting}
+                error={error || ''}
+            />
         </div>
     );
 }
