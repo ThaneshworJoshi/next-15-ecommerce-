@@ -1,0 +1,20 @@
+# Node modules and build output
+node_modules
+.next
+out
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Git and Docker files
+.git
+.gitignore
+Dockerfile
+docker-compose*.yml
+
+# Local env files (don’t put secrets into image)
+.env*.local
+
+!.next/static
+!.next/standalone
