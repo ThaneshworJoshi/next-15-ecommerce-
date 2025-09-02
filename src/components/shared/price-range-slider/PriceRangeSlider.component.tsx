@@ -1,19 +1,18 @@
-import * as SliderPrimitive from '@radix-ui/react-slider';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { PriceRangeSliderProps } from "./PriceRangeSlider.type";
+import { DualRangeSlider } from '../dual-range-slider';
+import { useState } from 'react';
 
 export const PriceRangeSlider = ({
-  range,
-  setRange,
-  min,
-  max,
-  step = 10,
+
 }: PriceRangeSliderProps) => {
   const handleRangeChange = (value: number[]) => {
     if (value.length === 2) {
       setRange([value[0], value[1]]);
     }
   };
-
+  const [range, setRange] = useState<[number, number]>([0, 100]);
   return (
     <div className="w-full max-w-md mx-auto py-6 bg-neutral-background p-5 rounded-lg">
 
@@ -24,21 +23,19 @@ export const PriceRangeSlider = ({
         </span>
       </div>
 
-      <SliderPrimitive.Root
-        className="relative flex w-full touch-none select-none items-center"
-        min={min}
-        max={max}
-        step={step}
-        value={range}
-        onValueChange={handleRangeChange}
-      >
-        <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-gray-200">
-          <SliderPrimitive.Range className="absolute h-full bg-primary" />
-        </SliderPrimitive.Track>
+ 
 
-        <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full bg-primary border-2 border-white shadow" />
-        <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full bg-primary border-2 border-white shadow" />
-      </SliderPrimitive.Root>
+      <DualRangeSlider
+        min={0}
+        max={100}
+        step={1}
+        value={range}
+        
+
+        onValueChange={(val) => setRange(val as [number, number])}
+        // label={(val) => <span className="text-xs font-medium text-muted-foreground">{val}</span>}
+        labelPosition="top"
+      />
     </div>
   );
 };
