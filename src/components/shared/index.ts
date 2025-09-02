@@ -13,3 +13,4 @@ export * from "./contact-form";
 export * from "./product-list-client";
 export * from "./pagination";
 export * from "./category-client";
+export * from "./dual-range-slider";

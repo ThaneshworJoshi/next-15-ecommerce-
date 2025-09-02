@@ -70,7 +70,7 @@ const Sidebar = ({
     activeFilters.categories || []
   );
   const [priceRange, setPriceRange] = useState<[number, number]>(
-    initialPriceRange || [0, 0]
+     [0, 1000]
   );
 
   // Accordion state
@@ -291,9 +291,9 @@ const Sidebar = ({
           <PriceRangeSlider
             range={priceRange}
             setRange={setPriceRange}
-            min={initialPriceRange?.[0] || 0}
-            max={initialPriceRange?.[1] || 0}
-            step={10}
+            min={0}
+            max={1000}
+            step={1}
           />
           <div className="flex justify-between text-sm text-gray-600 px-5 mt-2">
             <span>${initialPriceRange?.[0]}</span>
